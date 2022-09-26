@@ -1,0 +1,128 @@
+
+
+body{
+    background-color: #1c1c1c;
+    margin: 0;
+    padding: 0;
+}
+
+#navbar_div{
+    outline: white solid 2px;
+    background-color: #262626;
+    height: 105px;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.navbar_icon{
+    height: 90px;
+    width: 90px;
+}
+
+#usernameAndImage_div{
+    display: flex;
+}
+
+#user_icon{
+    padding-left: 12px;
+    padding-top: 9px;
+}
+
+#username{
+    color: white;
+    padding: 17px;
+}
+
+#logout_div{
+    display: flex;
+    justify-content: right;
+}
+#logout_icon {
+    padding-top: 5px;
+}
+
+.section_center{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#sectionTitle_div{
+    display: flex;
+    padding-top: 20px;
+    padding-bottom: 30px;
+}
+
+.addMovie_div{
+    padding-left: 40px;
+    padding-bottom: 20px;
+}
+
+.addMovie_button{
+    width: 90px;
+}
+
+#title{
+    color: white;
+    font-size: 95px;
+    margin: auto;
+}
+
+.movieCard{
+    display: flex;
+    background-color: #333333;
+    padding: 15px;
+    height: 430px;
+    width: 700px;
+}
+
+
+.movie_image{
+    height: 430px;
+    width: 330px;
+    padding-right: 15px;
+}
+
+.movieTitle{
+    color: white;
+    font-size: 35px;
+    padding-left: 10px;
+    margin-top: 5px;
+}
+
+.importantMovieInfo{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.movieInfoHeader{
+    color: white;
+    font-size: 22px;
+    padding-left: 10px;
+    font-weight: lighter;
+    margin-top: 10px;
+}
+
+.movieInfo{
+    color: white;
+    font-size: 17px;
+    padding-left: 10px;
+    font-weight: lighter;
+    margin-top: -20px;
+}
+
+.movieLength{
+    color: white;
+    font-size: 17px;
+    font-weight: lighter;
+}
+
+.card_button{
+    height: 22px;
+    width: 75px;
+
+}
+
+.cardButton_div{
+    display: flex;
+}
