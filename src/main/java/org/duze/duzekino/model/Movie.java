@@ -13,6 +13,7 @@ import java.time.Duration;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
+@Builder
 public final class Movie {
 
     @Id
