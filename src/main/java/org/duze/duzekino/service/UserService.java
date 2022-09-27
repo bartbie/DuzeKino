@@ -25,14 +25,14 @@ public class UserService {
         return userRepository.findUserByUsername(username);
     }
 
-    public User getUser(Integer id) throws UserNotFoundException {
+    public User getUser(Long id) throws UserNotFoundException {
         Optional<User> result = userRepository.findById(id);
         if (result.isPresent()) {
             return result.get();
         } throw new UserNotFoundException("User not found with id: " + id);
     }
 
-    public void deleteUser(Integer id) throws UserNotFoundException {
+    public void deleteUser(Long id) throws UserNotFoundException {
         Long count = userRepository.countById(id);
         if(count == null || count ==0) {
             throw new UserNotFoundException("User not found with id: " + id);
