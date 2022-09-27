@@ -15,7 +15,7 @@ var txt = 'Kino XP Theater'; /* The text */
 var speed = 150; /* The speed/duration of the effect in milliseconds */
 
 function typeWriter() {
-    console.log("I called");
+
     if (i < txt.length) {
         headingOfForm.innerHTML += txt.charAt(i);
         i++;
@@ -54,4 +54,45 @@ function switchTologinForm(){
     inpFld.value = "";
 }
 loginFormlinkTag.addEventListener("click", switchTologinForm)
+
+
+//Fetching
+const out = (any) => console.log(any);
+
+
+// const userUrl = "http://localhost:9090/users"
+
+const userInpFld = document.querySelector(".userInpFld")
+const passInpFld = document.querySelector(".passInpFld")
+
+
+// function fetchUsers(url){
+//
+//     return fetch(url).then(response => response.json())
+// }
+//
+// async function doFetchUser(){
+//     let users = await fetchUsers(userUrl);
+//     out(users)
+//
+//     users.forEach(f => out(f));
+// }
+//
+// doFetchUser();
+
+const submitBtn = document.querySelector(".submit-btn")
+
+
+function createJsonObj(e){
+    e.preventDefault()
+    data = {
+        "username" : userInpFld.value,
+        "password" : passInpFld.value
+    }
+    const jsonString = JSON.stringify(data)
+
+    out(jsonString)
+}
+
+submitBtn.addEventListener("click", createJsonObj)
 
