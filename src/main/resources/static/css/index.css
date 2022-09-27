@@ -1,0 +1,130 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: rgb(30, 26, 26);
+}
+
+.credentials-section{
+    /* border: 1px solid wheat; */
+    height: 600px;
+    width: auto;
+}
+
+.formFooterLine{
+    position:relative;
+    top: 400px;
+    left: 120px;
+    width: 300px;
+}
+.formFooterPara{
+    font-size: 12px;
+    color: whitesmoke;
+    position:relative;
+    top: 405px;
+    left: 180px;
+    width: 300px;
+}
+
+.wholeForm{
+    height: 500px;
+    width: 550px;
+    position: relative;
+    top: 100px;
+    left: 475px;
+    border: 2px dotted darkgray;
+
+}
+
+.headingOfForm{
+    color: rgb(158, 37, 37);
+    font-family: cursive;
+    position: relative;
+    top: 20px;
+    left: 125px;
+    font-size: 40px;
+}
+
+.loginForm{
+    height: 400px;
+    width: 400px;
+    position: absolute;
+    left: 40px;
+    top: 50px;
+    padding-top: 50px;
+    padding-left: 90px;
+}
+
+.registrationForm{
+    height: 400px;
+    width: 400px;
+    position: absolute;
+    left: 40px;
+    top: 50px;
+    padding-top: 50px;
+    padding-left: 90px;
+    visibility: hidden;
+
+}
+
+
+.registrationForm button{
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+/* .registrationForm hr{
+    margin-top: 2px;
+    margin-bottom: 2px;
+} */
+
+
+form input{
+    background-color: rgb(47, 41, 41);
+    color: white;
+    /* background-color: whitesmoke;
+    color: rgb(31, 27, 27); */
+    width: 250px;
+    height: 18px;
+    margin: 5px;
+    border-radius: 5px;
+    /* border-radius: 5px solid;
+    border-color:rgb(130, 126, 126); */
+}
+form button {
+    background-color: rgb(130, 126, 126);
+    color: rgb(239, 230, 230);
+    height: 33px;
+    width: 180px;
+    margin: 4px;
+    margin-top: 10px;
+    margin-bottom: 25px;
+    margin-left: 40px;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+form button:hover{
+    background-color: rgb(239, 230, 230);
+    color: rgb(130, 126, 126);
+}
+
+form a{
+    text-decoration: none;
+    color: rgb(130, 126, 126);
+    margin-left: 55px;
+}
+form a:hover{
+    color: whitesmoke;
+}
+
+form hr{
+    border-color: rgb(130, 126, 126);
+    border-radius: 2px;
+    width: 80px;
+    margin-left: 85px;
+    margin-top: 12px;
+    margin-bottom: 6px;
+}
+
