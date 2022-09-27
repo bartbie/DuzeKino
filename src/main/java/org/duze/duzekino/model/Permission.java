@@ -17,4 +17,5 @@ public enum Permission {
     public Integer getLevel() {
         return level;
     }
+
 }
