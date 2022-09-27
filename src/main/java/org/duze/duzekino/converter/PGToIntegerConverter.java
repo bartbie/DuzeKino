@@ -21,18 +21,8 @@ public final class PGToIntegerConverter implements AttributeConverter<PG, Intege
     public PG convertToEntityAttribute(Integer integer) {
         return integer == null
                 ? null
-                : toClosest(integer);
+                : PG.toClosest(integer);
     }
 
-    public PG toClosest(@NonNull Integer integer) {
-        if (integer >= 17) {
-            return PG.SEVENTEEN;
-        } else if (integer >= 15) {
-            return PG.FIFTEEN;
-        } else if (integer >= 13) {
-            return PG.THIRTEEN;
-        } else {
-            return PG.ANY;
-        }
-    }
+
 }

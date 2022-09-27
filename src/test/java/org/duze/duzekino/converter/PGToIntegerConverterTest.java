@@ -19,22 +19,4 @@ class PGToIntegerConverterTest {
         PG rating = PG.SEVENTEEN;
         assertEquals(rating, converter.convertToEntityAttribute(17));
     }
-
-    @Test
-    void toClosestBiggest() {
-        int age = 18;
-        assertEquals(PG.SEVENTEEN, converter.toClosest(18));
-    }
-
-    @Test
-    void toCLosestSmallest() {
-        int age = 1;
-        assertEquals(PG.ANY, converter.toClosest(age));
-    }
-
-    @Test
-    void toClosestMiddle() {
-        int age = 14;
-        assertEquals(PG.THIRTEEN, converter.toClosest(age));
-    }
 }
