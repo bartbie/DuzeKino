@@ -1,11 +1,12 @@
 function out(any) {console.log(any)}
-
 out("I am inside main_page.js")
 
-function addMovieCard(){
-    out("It is working")
+function elementFromHtml(element){
+    const template = document.createElement("template")
+
+    template.innerHTML = element.trim();
+    return template.content.firstElementChild;
 }
 
-const addMovie_button = document.getElementById("newMovie_button")
 
-addMovie_button.addEventListener('click', addMovieCard)
+document.getElementById("newMovie_button").addEventListener('click', test)
