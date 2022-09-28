@@ -72,10 +72,28 @@ function inputParameters(){
 
     let newMovieCast = document.querySelector("#inputCast")
     newMovieCast.innerHTML = movieCast
-
-
 }
 
-const button = document.getElementById("newMovie_button")
-button.addEventListener('click', addMovieCard)
-button.addEventListener('click', inputParameters)
+
+//KEV AND MADALIN
+
+let popup = document.getElementById('popup');
+
+function openPopup(){
+    popup.classList.add('open-popup')
+}
+function closePopup(){
+    popup.classList.remove('open-popup')
+}
+
+const newMoviePopup_btn = document.getElementById("newMovie_button")
+const editMoviePopup_btn = document.getElementById("editMovie_button")
+const saveMoviePopup_btn = document.getElementById("saveMovie_btn")
+
+//button.addEventListener('click', addMovieCard)
+//button.addEventListener('click', inputParameters)
+newMoviePopup_btn.addEventListener('click', openPopup)
+editMoviePopup_btn.addEventListener('click', openPopup)
+saveMoviePopup_btn.addEventListener('click', addMovieCard)
+saveMoviePopup_btn.addEventListener('click', closePopup)
+

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Home Page</title>
     <link rel="stylesheet" href="/static/css/main_page.css">
+    <link rel="stylesheet" href="/static/css/Popup.css">
 </head>
 <body>
 
@@ -51,13 +52,54 @@
                 <h4 class="movieInfo"> I've Never Seen Star Wars </h4>
 
                 <div class="cardButton_div">
-                    <button class="button" id="edit_button">Edit</button>
-                    <button class="button" id="delete_button">Delete</button>
+                    <button class="button" id="editMovie_button">Edit</button>
+                    <button class="button" id="deleteMovie_button">Delete</button>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+
+<!-- KEV AND MADALIN -->
+
+  <div class="popup" id="popup">
+    <h1>Insert your data</h1>
+    <h2>
+      <label for="image">Image:</label>
+      <br>
+      <input type="image" id="image" alt = "Insert a image here"><br><br>
+    </h2>
+    <div class="input_class"><h2>
+      <label for="title">Title:</label>
+      <br>
+      <input type="text" id="popupTitle"><br><br>
+
+      <label for="popupYear">Year:</label>
+      <br>
+      <input type="number" id="popupYear" ><br><br>
+
+      <label for="popupPG_id">Age Limit:</label>
+      <br>
+      <input type="text" id="popupPG_id" ><br><br>
+
+      <label for="popupLenght">Length(minutes):</label>
+      <br>
+      <input type="number" id="popupLenght" ><br><br>
+
+      <label for="popupCast_id">Cast:</label>
+      <br>
+      <input type="text" id="popupCast_id"><br><br>
+
+      <label for="popupDescription">Description:</label>
+      <br>
+      <textarea name="paragraph_text" id="popupDescription" cols="50" rows="10"></textarea><br><br>
+
+    </h2>
+    </div>
+    <button type="button" id="saveMovie_btn" onclick='closePopup()'>Save</button>
+  </div>
+</div>
 <script src="js/main_page.js"></script>
 </body>
 </html>
