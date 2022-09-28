@@ -1,14 +1,17 @@
-
+:root {
+    --primary-color: #1c1c1c;
+    --secondary-color: #262626;
+}
 
 body{
-    background-color: #1c1c1c;
+    background-color: var(--primary-color);
     margin: 0;
     padding: 0;
 }
 
 #navbar_div{
     outline: white solid 2px;
-    background-color: #262626;
+    background-color: var(--secondary-color);
     height: 105px;
     display: flex;
     justify-content: space-between;
