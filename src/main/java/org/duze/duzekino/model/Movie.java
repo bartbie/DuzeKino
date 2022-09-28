@@ -18,7 +18,7 @@ public final class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
-    @NotNull private Long id;
+    @NotNull private Long movieId;
 
     @NotNull @NonNull private String title;
     @NotNull @NonNull private String description;

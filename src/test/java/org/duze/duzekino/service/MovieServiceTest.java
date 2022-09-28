@@ -51,7 +51,7 @@ class MovieServiceTest {
 
     @Test
     void findMovieById() {
-        assertEquals(movie, service.findMovieById(movie.getId()).get());
+        assertEquals(movie, service.findMovieById(movie.getMovieId()).get());
     }
 
     @Test
