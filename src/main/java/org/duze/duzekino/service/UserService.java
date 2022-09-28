@@ -1,6 +1,7 @@
 package org.duze.duzekino.service;
 
 import org.duze.duzekino.model.User;
+import org.duze.duzekino.model.UserCredentials;
 import org.duze.duzekino.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,8 +22,12 @@ public class UserService {
     public List<User> getAllUsers() {
         return (List<User>) userRepository.findAll();
     }
-    public User getUserByUsername(String username) {
-        return userRepository.findUserByUsername(username);
+
+    public User getUserByUsername(String username) throws UserNotFoundException{
+        Optional<User> result = userRepository.findUserByUsername(username);
+        if (result.isPresent()) {
+          return result.get();
+        } throw new UserNotFoundException("User not found with username: " + username);
     }
 
     public User getUser(Long id) throws UserNotFoundException {
