@@ -20,12 +20,7 @@ function clear() {
     document.getElementById("popupDescription").value = ""
 }
 
-function getInputValue(){
-    /*
-    var inputValue = document.getElementById("popupTitle").value
-    out(inputValue)
-    return inputValue
-     */
+function setInputValue(){
 
     let input = [];
     input['title'] = document.getElementById("popupTitle").value
@@ -34,7 +29,6 @@ function getInputValue(){
     input['duration'] = document.getElementById("popupLenght").value
     input['cast'] = document.getElementById("popupCast_id").value
     input['description'] = document.getElementById("popupDescription").value
-
 
     return input
 }
@@ -45,21 +39,21 @@ function addMovieCard(){
         '            \n' +
         '            <img src="image/shrek_movie.jpg" class="movie_image">\n' +
         '            <div class="card_info">\n' +
-        '                <h1 class="movieTitle" id="movie">' + getInputValue().title+ '</h1>\n' +
+        '                <h1 class="movieTitle" id="movie">' + setInputValue().title+ '</h1>\n' +
         '\n' +
         '                <div class="importantMovieInfo">\n' +
-        '                    <h4 class="movieInfo" id="inputYear">'+getInputValue().year+'</h4>\n' +
+        '                    <h4 class="movieInfo" id="inputYear">'+setInputValue().year+'</h4>\n' +
         '                    <h4 class="movieInfo">|</h4>\n' +
-        '                    <h4 class="movieInfo" id="inputPG">'+getInputValue().pg +'</h4>\n' +
+        '                    <h4 class="movieInfo" id="inputPG">'+setInputValue().pg +'</h4>\n' +
         '                    <h4 class="movieInfo">|</h4>\n' +
-        '                    <h4 class="movieInfo" id="inputLength">'+getInputValue().duration + ' minutes' + '</h4>\n' +
+        '                    <h4 class="movieInfo" id="inputLength">'+setInputValue().duration + ' minutes' + '</h4>\n' +
         '                </div>\n' +
         '\n' +
         '                <h4 class="movieInfoHeader">Cast:</h4>\n' +
-        '                <h4 class="movieInfo" id="inputCast">'+getInputValue().cast +'</h4>\n' +
+        '                <h4 class="movieInfo" id="inputCast">'+setInputValue().cast +'</h4>\n' +
         '\n' +
         '                <h4 class="movieInfoHeader">Description:</h4>\n' +
-        '                <h4 class="movieInfo" id="inputDescription">'+getInputValue().description +'</h4>\n' +
+        '                <h4 class="movieInfo" id="inputDescription">'+setInputValue().description +'</h4>\n' +
         '\n' +
         '                <div class="cardButton_div">\n' +
         '                    <button class="button" id="edit_button">Edit</button>\n' +
