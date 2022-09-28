@@ -1,0 +1,45 @@
+.popup{
+    width: 900px;
+    height: 1000px;
+    background: #262626;
+    color: #fff;
+    border-radius: 7px;
+    position: absolute;
+    top:0;
+    left: 50%;
+    transform: translate(-50%,-50%) scale(0.1);
+    padding: 0 30px 30px;
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s;
+}
+h1{
+    text-align: center;
+}
+.input_class, input{
+    width: 400px;
+    border-width: 1px;
+    border-color: #191c22;
+    border-radius: 7px;
+}
+.input_class,textarea{
+    width: 400px;
+    border-width: 1px;
+    border-color: #191c22;
+    border-radius: 7px;
+}
+
+
+
+.open-popup{
+    visibility: visible;
+    top: 70%;
+    transform: translate(-50%,-50%) scale(1);
+}
+.popup button{
+    background-color: rgb(25,28,34);
+    color: rgb(239, 230, 230);
+    height: 33px;
+    width: 180px;
+    border-radius: 7px;
+    cursor: pointer;
+}
