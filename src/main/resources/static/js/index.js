@@ -62,7 +62,7 @@ loginFormlinkTag.addEventListener("click", switchTologinForm)
 const out = (any) => console.log(any);
 
 
-// const userUrl = "http://localhost:9090/users"
+// const userUrl = "http://localhost:8080/users"
 
 
 
@@ -81,8 +81,6 @@ const out = (any) => console.log(any);
 // }
 //
 // doFetchUser();
-
-
 
 
 // function loginJsonObj(e){
@@ -134,7 +132,7 @@ registerBtn.addEventListener("click", function (e){
     e.preventDefault();
 
     out("Before Fetch")
-    fetch("http://localhost:9090/user", {
+    fetch("http://localhost:8080/user", {
         method: "POST",
         body: JSON.stringify({
             username:regUserFld.value,
@@ -155,7 +153,7 @@ loginBtn.addEventListener("click", function (e){
     e.preventDefault();
 
     out("Before Fetch")
-    fetch("http://localhost:9090/login", {
+    fetch("http://localhost:8080/login", {
         method: "POST",
         body: JSON.stringify({
             username:userInpFld.value,
