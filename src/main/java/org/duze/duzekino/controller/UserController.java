@@ -1,5 +1,9 @@
 package org.duze.duzekino.controller;
 
+
+import lombok.Getter;
+import lombok.NonNull;
+import org.duze.duzekino.model.Permission;
 import org.duze.duzekino.model.User;
 import org.duze.duzekino.model.UserCredentials;
 import org.duze.duzekino.repository.UserRepository;
@@ -11,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin
 public class UserController {
@@ -19,7 +25,7 @@ public class UserController {
     UserService userService;
 
     @GetMapping("/user")
-    User getUser()throws UserNotFoundException {
+    User getUser() throws UserNotFoundException {
 
         return userService.getUser(2L);
     }
@@ -40,4 +46,10 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.NOT_FOUND);
     }
 
+    @PostMapping("/registration")
+    ResponseEntity<User> register(@RequestBody User user) {
+        user.setPermission(Permission.BASIC);
+        userService.saveUser(user);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
 }

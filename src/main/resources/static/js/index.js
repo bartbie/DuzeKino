@@ -22,11 +22,12 @@ function typeWriter() {
         setTimeout(typeWriter, speed);
     }
 }
+
 typeWriter();
 
 // Form switching function
 
-function switchToRGForm(){
+function switchToRGForm() {
 
     //For type writing
     headingOfForm.innerHTML = "";
@@ -38,10 +39,11 @@ function switchToRGForm(){
     rgForm.style.visibility = "visible";
     inpFld.value = "";
 }
+
 rgFormlinkTag.addEventListener("click", switchToRGForm)
 
 
-function switchTologinForm(){
+function switchTologinForm() {
 
     //For type writing
     headingOfForm.innerHTML = "";
@@ -53,9 +55,8 @@ function switchTologinForm(){
     loginForm.style.visibility = "visible";
     inpFld.value = "";
 }
+
 loginFormlinkTag.addEventListener("click", switchTologinForm)
-
-
 
 
 //Fetching
@@ -63,9 +64,6 @@ const out = (any) => console.log(any);
 
 
 // const userUrl = "http://localhost:8080/users"
-
-
-
 
 
 // function fetchUsers(url){
@@ -128,54 +126,56 @@ const regPassFld = document.querySelector(".regPassFld")
 const confirmPassFld = document.querySelector(".confirmPassFld")
 
 
-registerBtn.addEventListener("click", function (e){
+registerBtn.addEventListener("click", function (e) {
     e.preventDefault();
 
     out("Before Fetch")
-    fetch("http://localhost:8080/user", {
+    fetch("http://localhost:8080/registration", {
         method: "POST",
         body: JSON.stringify({
-            username:regUserFld.value,
+            username: regUserFld.value,
             email: regEmailFld.value,
-            password:regPassFld.value
+            password: regPassFld.value
         }),
         headers: {
             "Content-type": "application/json"
         }
-    }).then(function (response){
+    }).then(function (response) {
         return response.json()
-    }).then(function (data){
-        console.log(data)
+    }).then(function (data) {
+        if (data.permission) {
+            window.location.href = "LoggedIn.html"
+        } else {
+            console.log(data)
+        }
     })
 })
 
-loginBtn.addEventListener("click", function (e){
+loginBtn.addEventListener("click", function (e) {
     e.preventDefault();
 
     out("Before Fetch")
     fetch("http://localhost:8080/login", {
         method: "POST",
         body: JSON.stringify({
-            username:userInpFld.value,
-            password:passInpFld.value
+            username: userInpFld.value,
+            password: passInpFld.value
         }),
         headers: {
             "Content-type": "application/json"
         }
-    }).then(function (response){
+    }).then(function (response) {
         return response.json()
     })
-        .then(function (data){
-            if (data.id){
+        .then(function (data) {
+            if (data.id) {
                 window.location.href = "LoggedIn.html"
-            }
-            else {
+            } else {
                 console.log(data)
             }
 
-    })
+        })
 })
-
 
 
 // end
