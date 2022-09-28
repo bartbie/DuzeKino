@@ -58,7 +58,7 @@ public final class MovieService {
         oldM.setLength(newM.getLength());
         oldM.setYear(newM.getYear());
         oldM.setRating(newM.getRating());
-        //        movieRepo.save(oldM);
+        movieRepo.save(oldM);
         log.info("Updated Movie from %s to %s".formatted(oldInfo, oldM));
         return oldM;
     }
