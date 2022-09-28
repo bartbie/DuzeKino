@@ -6,10 +6,13 @@ import org.duze.duzekino.repository.UserRepository;
 import org.duze.duzekino.service.UserNotFoundException;
 import org.duze.duzekino.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin
 public class UserController {
 
     @Autowired
@@ -26,15 +29,15 @@ public class UserController {
         return userService.getUserByUsername("admin");
     }
 
-    @PostMapping("/userCredentialsSubmit")
-    String authorize(@RequestBody UserCredentials userCredentials) throws UserNotFoundException {
+    @PostMapping("/login")
+    ResponseEntity<User> authorize(@RequestBody UserCredentials userCredentials) throws UserNotFoundException {
         String username = userCredentials.getUsername();
         String password = userCredentials.getPassword();
         User user = userService.getUserByUsername(username);
         if (user.getPassword().equalsIgnoreCase(password)) {
-            return "authorize";
+            return new ResponseEntity<>(user, HttpStatus.OK);
         }
-            return "nope";
+        return new ResponseEntity<>(user, HttpStatus.NOT_FOUND);
     }
 
 }
