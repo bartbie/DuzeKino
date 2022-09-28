@@ -61,8 +61,8 @@
     </div>
 
     <div id="buttons_div">
-        <button type="button" class="button" id="saveMovie_btn" onclick='closePopup()'>Save</button>
-        <button type="button" class="button" id="cancel_btn" onclick='closePopup()'>Cancel</button>
+        <button type="button" class="button" id="saveMovie_btn" onclick="getInputValue();">Save</button>
+        <button type="button" class="button" id="cancel_btn">Cancel</button>
     </div>
 </div>
 
@@ -81,7 +81,7 @@
             <img src="image/starwars_Movie.jpeg" class="movie_image">
 
             <div class="card_info">
-                <h1 class="movieTitle">Star Wars: The Rise of Skywalker</h1>
+                <h1 class="movieTitle" id="movie">Star Wars: The Rise of Skywalker</h1>
                 <div class="importantMovieInfo">
                     <h4 class="movieInfo" id="movieYear">2019</h4>
                     <h4 class="movieInfo">|</h4>
@@ -106,6 +106,5 @@
 </section>
 
 <script src="js/main_page.js"></script>
-
 </body>
 </html>

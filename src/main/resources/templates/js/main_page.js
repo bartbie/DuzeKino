@@ -11,27 +11,55 @@ function elementFromHtml(element){
     return template.content.firstElementChild;
 }
 
+function clear() {
+    document.getElementById("popupTitle").value = ""
+    document.getElementById("popupYear").value = ""
+    document.getElementById("popupPG_id").value = ""
+    document.getElementById("popupLenght").value = ""
+    document.getElementById("popupCast_id").value = ""
+    document.getElementById("popupDescription").value = ""
+}
+
+function getInputValue(){
+    /*
+    var inputValue = document.getElementById("popupTitle").value
+    out(inputValue)
+    return inputValue
+     */
+
+    let input = [];
+    input['title'] = document.getElementById("popupTitle").value
+    input['year'] = document.getElementById("popupYear").value
+    input['pg'] = document.getElementById("popupPG_id").value
+    input['duration'] = document.getElementById("popupLenght").value
+    input['cast'] = document.getElementById("popupCast_id").value
+    input['description'] = document.getElementById("popupDescription").value
+
+
+    return input
+}
+
 //We definitely need paramater to pass in the movieCard variable. maybe something like: document.getElementById("movieYear").setAttribute(variableName)
 function addMovieCard(){
     const movieCard = elementFromHtml('<div class="movieCard">\n' +
         '            \n' +
         '            <img src="image/shrek_movie.jpg" class="movie_image">\n' +
         '            <div class="card_info">\n' +
-        '                <h1 class="movieTitle" id="inputTitle"></h1>\n' +
+        '                <h1 class="movieTitle" id="movie">' + getInputValue().title+ '</h1>\n' +
         '\n' +
         '                <div class="importantMovieInfo">\n' +
-        '                    <h4 class="movieInfo" id="inputYear">2001</h4>\n' +
+        '                    <h4 class="movieInfo" id="inputYear">'+getInputValue().year+'</h4>\n' +
         '                    <h4 class="movieInfo">|</h4>\n' +
-        '                    <h4 class="movieInfo" id="inputPG">3+</h4>\n' +
+        '                    <h4 class="movieInfo" id="inputPG">'+getInputValue().pg +'</h4>\n' +
         '                    <h4 class="movieInfo">|</h4>\n' +
-        '                    <h4 class="movieInfo" id="inputLength">90 minutes</h4>\n' +
+        '                    <h4 class="movieInfo" id="inputLength">'+getInputValue().duration + ' minutes' + '</h4>\n' +
         '                </div>\n' +
         '\n' +
         '                <h4 class="movieInfoHeader">Cast:</h4>\n' +
-        '                <h4 class="movieInfo" id="inputCast"> I\'ve Never Seen Star Wars </h4>\n' +
+        '                <h4 class="movieInfo" id="inputCast">'+getInputValue().cast +'</h4>\n' +
         '\n' +
         '                <h4 class="movieInfoHeader">Description:</h4>\n' +
-        '                <h4 class="movieInfo" id="inputDescription">This is going to be the description of the film </h4>\n' +
+        '                <h4 class="movieInfo" id="inputDescription">'+getInputValue().description +'</h4>\n' +
         '\n' +
         '                <div class="cardButton_div">\n' +
         '                    <button class="button" id="edit_button">Edit</button>\n' +
@@ -45,35 +73,6 @@ function addMovieCard(){
     //Now i can append the movie card inside the section_center div so that can follow its styling
     elementToAppendTO.appendChild(movieCard)
 }
-
-const movieTitle = "TEST"
-const movieYear = "2099"
-const moviePG = "3+"
-const movieLength = "90min"
-const movieDescription = "This is hte sdnsidenidcdnickdncidckndickdnc"
-const movieCast = "dkdkmcdmdkc"
-
-function inputParameters(){
-
-    let newMovieTitle = document.querySelector("#inputTitle")
-    newMovieTitle.innerHTML = movieTitle
-
-    let newMovieYear = document.querySelector("#inputYear")
-    newMovieYear.innerHTML = movieYear
-
-    let newMoviePG = document.querySelector("#inputPG")
-    newMoviePG.innerHTML = moviePG
-
-    let newMovieLength = document.querySelector("#inputLength")
-    newMovieLength.innerHTML = movieLength
-
-    let newMovieDescription = document.querySelector("#inputDescription")
-    newMovieDescription.innerHTML = movieDescription
-
-    let newMovieCast = document.querySelector("#inputCast")
-    newMovieCast.innerHTML = movieCast
-}
-
 
 //KEV AND MADALIN
 
@@ -89,11 +88,19 @@ function closePopup(){
 const newMoviePopup_btn = document.getElementById("newMovie_button")
 const editMoviePopup_btn = document.getElementById("editMovie_button")
 const saveMoviePopup_btn = document.getElementById("saveMovie_btn")
+const cancelPopup_btn = document.getElementById("cancel_btn")
 
-//button.addEventListener('click', addMovieCard)
-//button.addEventListener('click', inputParameters)
+
 newMoviePopup_btn.addEventListener('click', openPopup)
-editMoviePopup_btn.addEventListener('click', openPopup)
+
 saveMoviePopup_btn.addEventListener('click', addMovieCard)
 saveMoviePopup_btn.addEventListener('click', closePopup)
+saveMoviePopup_btn.addEventListener('click', clear)
+
+cancelPopup_btn.addEventListener('click', closePopup)
+
+editMoviePopup_btn.addEventListener('click', openPopup)
+
+
+
 
