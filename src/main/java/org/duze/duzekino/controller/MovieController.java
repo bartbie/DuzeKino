@@ -3,6 +3,7 @@ package org.duze.duzekino.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.duze.duzekino.model.Movie;
+import org.duze.duzekino.service.MovieNotFoundException;
 import org.duze.duzekino.service.MovieService;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 @RestController
-    @RequestMapping("api/v1/Movie")
+@RequestMapping("api/v1/Movie")
 @RequiredArgsConstructor
 @Slf4j
 public class MovieController {
@@ -30,24 +31,24 @@ public class MovieController {
     }
 
     @DeleteMapping
-    public void deleteMovie(@RequestParam long id) throws IllegalStateException {
+    public void deleteMovie(@RequestParam long id) throws MovieNotFoundException {
         log.info("Deleting Movie with id %d".formatted(id));
         findByIdAndDo(movieService::deleteMovie, id);
     }
 
     @PutMapping
-    public void updateMovie(@RequestParam long id, @RequestBody Movie movie) throws IllegalStateException {
+    public void updateMovie(@RequestParam long id, @RequestBody Movie movie) throws MovieNotFoundException {
         log.info("Updating Movie with id %d. New Data: %s".formatted(id, movie));
         findByIdAndDo(movie1 -> movieService.updateMovie(movie1, movie), id);
     }
 
-    private void findByIdAndDo(Consumer<Movie> fn, long id) throws IllegalStateException {
+    private void findByIdAndDo(Consumer<Movie> fn, long id) throws MovieNotFoundException {
         var mv = movieService.findMovieById(id);
         mv.ifPresentOrElse(
                 fn,
                 () -> {
                     log.error("Couldn't find movie with id %d".formatted(id));
-                    throw new IllegalStateException("No movie with such ID");
+                    throw new MovieNotFoundException("No movie with such ID");
                 });
     }
 }

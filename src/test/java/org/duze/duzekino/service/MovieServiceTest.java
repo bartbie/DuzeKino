@@ -43,7 +43,7 @@ class MovieServiceTest {
     }
 
     @Test
-    void addMovie() {
+    void addMovie() throws MovieNotFoundException {
         Movie newM = new Movie("Shrek", "the 2", 2001, Duration.ofMinutes(120), PG.ANY);
         service.addMovie(newM);
         assertEquals(List.of(movie, newM), (service.getMovies()));
