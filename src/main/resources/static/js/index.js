@@ -65,12 +65,7 @@ const out = (any) => console.log(any);
 
 // const userUrl = "http://localhost:9090/users"
 
-const userInpFld = document.querySelector(".userInpFld")
-const passInpFld = document.querySelector(".passInpFld")
-const regUserFld = document.querySelector(".regUserFld")
-const regEmailFld = document.querySelector(".regEmailFld")
-const regPassFld = document.querySelector(".regPassFld")
-const confirmPassFld = document.querySelector(".confirmPassFld")
+
 
 
 
@@ -88,42 +83,95 @@ const confirmPassFld = document.querySelector(".confirmPassFld")
 //
 // doFetchUser();
 
+
+
+
+// function loginJsonObj(e){
+//     e.preventDefault()
+//     data = {
+//         "username" : userInpFld.value,
+//         "password" : passInpFld.value
+//     }
+//     const jsonString = JSON.stringify(data)
+//
+//     out(jsonString)
+// }
+//
+// loginBtn.addEventListener("click", loginJsonObj)
+//
+//
+// function registerJsonObj(e){
+//     e.preventDefault();
+//     if(regPassFld.value === confirmPassFld.value){
+//         data = {
+//             "username" : regUserFld.value,
+//             "email" : regEmailFld.value,
+//             "password" : regPassFld.value,
+//             "confirmPass" : confirmPassFld.value
+//         }
+//         const jsonString = JSON.stringify(data)
+//         out(jsonString)
+//     }
+//     else {
+//         out("Passwords do not match")
+//     }
+//
+// }
+//
+// registerBtn.addEventListener("click", registerJsonObj)
+
 const loginBtn = document.getElementById("login-btn")
 const registerBtn = document.getElementById("register-btn")
 
-
-function loginJsonObj(e){
-    e.preventDefault()
-    data = {
-        "username" : userInpFld.value,
-        "password" : passInpFld.value
-    }
-    const jsonString = JSON.stringify(data)
-
-    out(jsonString)
-}
-
-loginBtn.addEventListener("click", loginJsonObj)
+const userInpFld = document.querySelector(".userInpFld")
+const passInpFld = document.querySelector(".passInpFld")
+const regUserFld = document.querySelector(".regUserFld")
+const regEmailFld = document.querySelector(".regEmailFld")
+const regPassFld = document.querySelector(".regPassFld")
+const confirmPassFld = document.querySelector(".confirmPassFld")
 
 
-function registerJsonObj(e){
+registerBtn.addEventListener("click", function (e){
     e.preventDefault();
-    if(regPassFld.value === confirmPassFld.value){
-        data = {
-            "username" : regUserFld.value,
-            "email" : regEmailFld.value,
-            "password" : regPassFld.value,
-            "confirmPass" : confirmPassFld.value
+
+    out("Before Fetch")
+    fetch("http://localhost:9090/user", {
+        method: "POST",
+        body: JSON.stringify({
+            username:regUserFld.value,
+            email: regEmailFld.value,
+            password:regPassFld.value
+        }),
+        headers: {
+            "Content-type": "application/json"
         }
-        const jsonString = JSON.stringify(data)
-        out(jsonString)
-    }
-    else {
-        out("Passwords do not match")
-    }
+    }).then(function (response){
+        return response.json()
+    }).then(function (data){
+        console.log(data)
+    })
+})
 
-}
+loginBtn.addEventListener("click", function (e){
+    e.preventDefault();
 
-registerBtn.addEventListener("click", registerJsonObj)
+    out("Before Fetch")
+    fetch("http://localhost:9090/login", {
+        method: "POST",
+        body: JSON.stringify({
+            username:userInpFld.value,
+            password:passInpFld.value
+        }),
+        headers: {
+            "Content-type": "application/json"
+        }
+    }).then(function (response){
+        return response.json()
+    }).then(function (data){
+        console.log(data)
+    })
+})
+
+
 
 // end
