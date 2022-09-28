@@ -3,6 +3,7 @@ package org.duze.duzekino.service;
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.PropertySource;
 import org.duze.duzekino.model.Movie;
 import org.duze.duzekino.model.PG;
@@ -14,16 +15,23 @@ import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public final class MovieService {
     final MovieRepository movieRepo;
 
     public boolean inDatabase(@NonNull Movie movie) {
-        return getMovies().stream().anyMatch(movie1 -> {
-            return movie1.getTitle().equalsIgnoreCase(movie.getTitle()) && movie1.getYear().equals(movie.getYear());
-        });
+        Predicate<Movie> yearEquals = m -> m.getYear().equals(movie.getYear());
+        Predicate<Movie> titleEquals = m -> m.getTitle().equalsIgnoreCase(movie.getTitle());
+        return getMovies().stream().anyMatch(yearEquals.and(titleEquals));
+    }
+
+    public IllegalStateException newException(String msg) {
+        log.error(msg);
+        return new IllegalStateException(msg);
     }
 
     public List<Movie> getMovies() {
@@ -32,8 +40,9 @@ public final class MovieService {
 
     public Movie addMovie(@NonNull Movie movie) throws IllegalStateException {
         if (inDatabase(movie)) {
-            throw new IllegalStateException("Already in Database");
+            throw newException("Movie Already in Database");
         }
+        log.info("Adding %s to Database".formatted(movie));
         movieRepo.save(movie);
         return movie;
     }
@@ -43,35 +52,19 @@ public final class MovieService {
     }
 
     public Movie updateMovie(@NonNull Movie oldM, @NonNull Movie newM) {
+        var oldInfo = oldM.toString();
         oldM.setDescription(newM.getDescription());
         oldM.setTitle(newM.getTitle());
         oldM.setLength(newM.getLength());
         oldM.setYear(newM.getYear());
         oldM.setRating(newM.getRating());
-//        movieRepo.save(oldM);
+        //        movieRepo.save(oldM);
+        log.info("Updated Movie from %s to %s".formatted(oldInfo, oldM));
         return oldM;
     }
 
     public void deleteMovie(@NonNull Movie movie) {
+        log.info("removing %s".formatted(movie));
         movieRepo.delete(movie);
     }
 }
-
-
-
-
-
-/*    public Movie createMovie(String title, String description, Integer year, Duration length, PG rating){
-        Movie newMovie = Movie.builder()
-                .title(title)
-                .description(description)
-                .year(year)
-                .length(length)
-                .rating(rating)
-                .build();
-        movieRepo.save(newMovie);
-        return newMovie;
-    }*/
-
-
-

@@ -13,7 +13,6 @@ import java.time.Duration;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-@AllArgsConstructor
 public final class Movie {
 
     @Id
@@ -21,14 +20,20 @@ public final class Movie {
     @Setter(AccessLevel.NONE)
     @NotNull private Long id;
 
-    @NotNull private String title;
-    @NotNull private String description;
-    @NotNull private Integer year;
-    @NotNull private Duration length;
+    @NotNull @NonNull private String title;
+    @NotNull @NonNull private String description;
+    @NotNull @NonNull private Integer year;
+    @NotNull @NonNull private Duration length;
+
     @Convert(converter = PGToIntegerConverter.class)
     @NotNull private PG rating;
 
-    public Movie(@NonNull String title, String description, Integer year, Duration length, PG rating) {
+    public Movie(
+            @NonNull String title,
+            @NonNull String description,
+            @NonNull Integer year,
+            @NonNull Duration length,
+            @NonNull PG rating) {
         this.title = title;
         this.description = description;
         this.year = year;
