@@ -56,7 +56,6 @@ function switchTologinForm(){
 loginFormlinkTag.addEventListener("click", switchTologinForm)
 
 
-const userUrl = "http://"
 
 
 //Fetching
@@ -167,8 +166,15 @@ loginBtn.addEventListener("click", function (e){
         }
     }).then(function (response){
         return response.json()
-    }).then(function (data){
-        console.log(data)
+    })
+        .then(function (data){
+            if (data.email){
+                window.location.href = "LoggedIn.html"
+            }
+            else {
+                console.log(data)
+            }
+
     })
 })
 
