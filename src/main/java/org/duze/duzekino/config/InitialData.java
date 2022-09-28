@@ -14,7 +14,7 @@ public class InitialData {
     @Autowired
     private UserService userService;
 
-    @PostConstruct
+    //@PostConstruct
     public void initialiseDatabase() {
 
         User admin = new User("admin2", "1234", "admin@admin.com", Permission.ADMIN);
