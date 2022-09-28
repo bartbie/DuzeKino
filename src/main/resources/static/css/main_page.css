@@ -3,6 +3,16 @@
     --secondary-color: #262626;
 }
 
+:root button {
+    background-color: rgb(130, 126, 126);
+    color: rgb(239, 230, 230);
+    height: 25px;
+    width: 100px;
+    margin: 4px;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
 body{
     background-color: var(--primary-color);
     margin: 0;
@@ -62,6 +72,7 @@ body{
 .addMovie_div{
     padding-left: 40px;
     padding-bottom: 20px;
+
 }
 
 .addMovie_button{

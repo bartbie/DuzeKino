@@ -1,10 +1,18 @@
+#popoupInputField{
+    display: flex;
+    justify-content:space-evenly;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
 .popup{
+    outline: white solid 2px;
     width: 900px;
-    height: 1000px;
+    height: 650px;
     background: #262626;
     color: #fff;
     border-radius: 7px;
-    position: absolute;
+    position: fixed;
     top:0;
     left: 50%;
     transform: translate(-50%,-50%) scale(0.1);
@@ -14,17 +22,25 @@
 }
 h1{
     text-align: center;
+    padding-top: 15px;
 }
 .input_class, input{
     width: 400px;
     border-width: 1px;
-    border-color: #191c22;
+    border-color: var(--secondary-color);
     border-radius: 7px;
+    justify-content: flex-end;
 }
+
+#image {
+    width: 300px;
+    height: 432px;
+    outline: white solid 1px;
+}
+
 .input_class,textarea{
     width: 400px;
     border-width: 1px;
-    border-color: #191c22;
     border-radius: 7px;
 }
 
@@ -32,9 +48,10 @@ h1{
 
 .open-popup{
     visibility: visible;
-    top: 70%;
+    margin-top: 26%;
     transform: translate(-50%,-50%) scale(1);
 }
+/*
 .popup button{
     background-color: rgb(25,28,34);
     color: rgb(239, 230, 230);
@@ -42,4 +59,13 @@ h1{
     width: 180px;
     border-radius: 7px;
     cursor: pointer;
+}
+
+ */
+
+
+
+#buttons_div{
+    display: flex;
+    justify-content: space-evenly;
 }
