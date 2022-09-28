@@ -168,7 +168,7 @@ loginBtn.addEventListener("click", function (e){
         return response.json()
     })
         .then(function (data){
-            if (data.email){
+            if (data.id){
                 window.location.href = "LoggedIn.html"
             }
             else {
