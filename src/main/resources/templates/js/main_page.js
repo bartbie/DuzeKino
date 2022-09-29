@@ -11,28 +11,36 @@ function elementFromHtml(element){
     return template.content.firstElementChild;
 }
 
+let popupMovieTitle =document.getElementById("popupTitle")
+let popupYear = document.getElementById("popupYear")
+let popupPG_id = document.getElementById("popupPG_id")
+let popupLength = document.getElementById("popupLength")
+let popupCast_id = document.getElementById("popupCast_id")
+let popupDescription = document.getElementById("popupDescription")
+
 function clear() {
-    document.getElementById("popupTitle").value = ""
-    document.getElementById("popupYear").value = ""
-    document.getElementById("popupPG_id").value = ""
-    document.getElementById("popupLenght").value = ""
-    document.getElementById("popupCast_id").value = ""
-    document.getElementById("popupDescription").value = ""
+    popupMovieTitle.value = ""
+    popupYear.value = ""
+    popupPG_id.value = ""
+    popupLength.value = ""
+    popupCast_id.value = ""
+    popupDescription.value = ""
 }
 
 function setInputValue(){
 
     let input = [];
-    input['title'] = document.getElementById("popupTitle").value
-    input['year'] = document.getElementById("popupYear").value
-    input['pg'] = document.getElementById("popupPG_id").value
-    input['duration'] = document.getElementById("popupLenght").value
-    input['cast'] = document.getElementById("popupCast_id").value
-    input['description'] = document.getElementById("popupDescription").value
+    input['title'] = popupMovieTitle.value
+    input['year'] = popupYear.value
+    input['pg'] = popupPG_id.value
+    input['duration'] = popupLength.value
+    input['cast'] = popupCast_id.value
+    input['description'] =  popupDescription.value
 
     return input
 }
 
+//We definitely need paramater to pass in the movieCard variable. maybe something like: document.getElementById("movieYear").setAttribute(variableName)
 //We definitely need paramater to pass in the movieCard variable. maybe something like: document.getElementById("movieYear").setAttribute(variableName)
 function addMovieCard(){
     const movieCard = elementFromHtml('<div class="movieCard">\n' +
@@ -44,7 +52,7 @@ function addMovieCard(){
         '                <div class="importantMovieInfo">\n' +
         '                    <h4 class="movieInfo" id="inputYear">'+setInputValue().year+'</h4>\n' +
         '                    <h4 class="movieInfo">|</h4>\n' +
-        '                    <h4 class="movieInfo" id="inputPG">'+setInputValue().pg +'</h4>\n' +
+        '                    <h4 class="movieInfo" id="inputPG">'+ "PG: "+setInputValue().pg +' </h4>\n' +
         '                    <h4 class="movieInfo">|</h4>\n' +
         '                    <h4 class="movieInfo" id="inputLength">'+setInputValue().duration + ' minutes' + '</h4>\n' +
         '                </div>\n' +
@@ -68,6 +76,27 @@ function addMovieCard(){
     elementToAppendTO.appendChild(movieCard)
 }
 
+function saveMovie(event){
+    event.preventDefault()
+
+    out("before fetch")
+    fetch("Insert the Postmapping for saving movies", {
+        method: "POST",
+        body: JSON.stringify({
+            title: popupMovieTitle.value,
+            description: popupDescription.value,
+            year: popupYear.value,
+            length: popupLength.value
+        }),
+        headers: {
+            "Content-type": "application/json"
+        }
+    }).then(function (response){
+        return response.json()
+    }).then(function (data){out(data)})
+
+}
+
 //KEV AND MADALIN
 
 let popup = document.getElementById('popup');
@@ -87,6 +116,7 @@ const cancelPopup_btn = document.getElementById("cancel_btn")
 
 newMoviePopup_btn.addEventListener('click', openPopup)
 
+saveMoviePopup_btn.addEventListener('click', saveMovie)
 saveMoviePopup_btn.addEventListener('click', addMovieCard)
 saveMoviePopup_btn.addEventListener('click', closePopup)
 saveMoviePopup_btn.addEventListener('click', clear)

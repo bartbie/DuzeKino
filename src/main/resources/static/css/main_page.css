@@ -86,6 +86,7 @@ body{
 }
 
 .movieCard{
+    overflow: auto;
     display: flex;
     background-color: #333333;
     padding: 15px;
@@ -93,12 +94,17 @@ body{
     width: 700px;
 }
 
+.card_info{
+    max-width: 400px;
+}
 
 .movie_image{
     height: 430px;
     width: 330px;
     padding-right: 15px;
 }
+
+
 
 .movieTitle{
     color: white;
