@@ -40,6 +40,8 @@ function setInputValue(){
     return input
 }
 
+
+
 //We definitely need paramater to pass in the movieCard variable. maybe something like: document.getElementById("movieYear").setAttribute(variableName)
 //We definitely need paramater to pass in the movieCard variable. maybe something like: document.getElementById("movieYear").setAttribute(variableName)
 function addMovieCard(){
@@ -80,13 +82,14 @@ function saveMovie(event){
     event.preventDefault()
 
     out("before fetch")
-    fetch("Insert the Postmapping for saving movies", {
+    fetch("http://localhost:8080/api/v1/movie", {
         method: "POST",
         body: JSON.stringify({
             title: popupMovieTitle.value,
             description: popupDescription.value,
             year: popupYear.value,
-            length: popupLength.value
+            length: popupLength.value,
+            rating: popupPG_id.value
         }),
         headers: {
             "Content-type": "application/json"
