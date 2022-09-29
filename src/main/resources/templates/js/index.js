@@ -62,59 +62,6 @@ loginFormlinkTag.addEventListener("click", switchTologinForm)
 //Fetching
 const out = (any) => console.log(any);
 
-
-// const userUrl = "http://localhost:8080/users"
-
-
-// function fetchUsers(url){
-//
-//     return fetch(url).then(response => response.json())
-// }
-//
-// async function doFetchUser(){
-//     let users = await fetchUsers(userUrl);
-//     out(users)
-//
-//     users.forEach(f => out(f));
-// }
-//
-// doFetchUser();
-
-
-// function loginJsonObj(e){
-//     e.preventDefault()
-//     data = {
-//         "username" : userInpFld.value,
-//         "password" : passInpFld.value
-//     }
-//     const jsonString = JSON.stringify(data)
-//
-//     out(jsonString)
-// }
-//
-// loginBtn.addEventListener("click", loginJsonObj)
-//
-//
-// function registerJsonObj(e){
-//     e.preventDefault();
-//     if(regPassFld.value === confirmPassFld.value){
-//         data = {
-//             "username" : regUserFld.value,
-//             "email" : regEmailFld.value,
-//             "password" : regPassFld.value,
-//             "confirmPass" : confirmPassFld.value
-//         }
-//         const jsonString = JSON.stringify(data)
-//         out(jsonString)
-//     }
-//     else {
-//         out("Passwords do not match")
-//     }
-//
-// }
-//
-// registerBtn.addEventListener("click", registerJsonObj)
-
 const loginBtn = document.getElementById("login-btn")
 const registerBtn = document.getElementById("register-btn")
 
@@ -144,7 +91,7 @@ registerBtn.addEventListener("click", function (e) {
         return response.json()
     }).then(function (data) {
         if (data.permission) {
-            window.location.href = "LoggedIn.html"
+            window.location.href = "main_page.html"
         } else {
             console.log(data)
         }
@@ -169,7 +116,7 @@ loginBtn.addEventListener("click", function (e) {
     })
         .then(function (data) {
             if (data.id) {
-                window.location.href = "LoggedIn.html"
+                window.location.href = "main_page.html"
             } else {
                 console.log(data)
             }
