@@ -18,6 +18,18 @@ let popupLength = document.getElementById("popupLength")
 let popupCast_id = document.getElementById("popupCast_id")
 let popupDescription = document.getElementById("popupDescription")
 
+function toClosest(integer) {
+    if (integer >= 17) {
+        return "SEVENTEEN";
+    } else if (integer >= 15) {
+        return "FIFTEEN";
+    } else if (integer >= 13) {
+        return "THIRTEEN";
+    } else {
+        return "ANY";
+    }
+}
+
 function clear() {
     popupMovieTitle.value = ""
     popupYear.value = ""
@@ -40,6 +52,16 @@ function setInputValue(){
     return input
 }
 
+
+function movieFetch(method, body) {
+    return fetch("http://localhost:8080/api/v1/Movie", {
+        method: method,
+        body: JSON.stringify(body),
+        headers: {
+            "Content-type": "application/json"
+        }
+    })
+}
 
 
 //We definitely need paramater to pass in the movieCard variable. maybe something like: document.getElementById("movieYear").setAttribute(variableName)
@@ -82,14 +104,14 @@ function saveMovie(event){
     event.preventDefault()
 
     out("before fetch")
-    fetch("http://localhost:8080/api/v1/movie", {
+    fetch("http://localhost:8080/api/v1/Movie", {
         method: "POST",
         body: JSON.stringify({
             title: popupMovieTitle.value,
             description: popupDescription.value,
             year: popupYear.value,
-            length: popupLength.value,
-            rating: popupPG_id.value
+            length: `PT${popupLength.value}M`,
+            rating: toClosest(popupPG_id.value)
         }),
         headers: {
             "Content-type": "application/json"
