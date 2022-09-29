@@ -52,17 +52,32 @@ function setInputValue(){
     return input
 }
 
+function setInputValueFetched(movieList){
 
-function movieFetch(method, body) {
-    return fetch("http://localhost:8080/api/v1/Movie", {
-        method: method,
-        body: JSON.stringify(body),
-        headers: {
-            "Content-type": "application/json"
-        }
-    })
+    let input = [];
+    input['title'] = popupMovieTitle.value
+    input['year'] = popupYear.value
+    input['pg'] = popupPG_id.value
+    input['duration'] = popupLength.value
+    input['cast'] = popupCast_id.value
+    input['description'] =  popupDescription.value
+
+    return input
+}
+function fetch(endpoint, method, body) {
+    let xmlHttp = new XMLHttpRequest();
+    xmlHttp.open(method,`http://localhost:8080/${endpoint}`, false); // false for synchronous request
+    xmlHttp.send(body);
+    return xmlHttp.responseText;
 }
 
+const movieFetch = (method, body) => fetch("api/v1/Movie", method, body)
+
+function fetchAllMovies(){
+    return movieFetch("GET", null);
+}
+
+out(fetchAllMovies())
 
 //We definitely need paramater to pass in the movieCard variable. maybe something like: document.getElementById("movieYear").setAttribute(variableName)
 //We definitely need paramater to pass in the movieCard variable. maybe something like: document.getElementById("movieYear").setAttribute(variableName)
@@ -71,21 +86,21 @@ function addMovieCard(){
         '            \n' +
         '            <img src="image/shrek_movie.jpg" class="movie_image">\n' +
         '            <div class="card_info">\n' +
-        '                <h1 class="movieTitle" id="movie">' + setInputValue().title+ '</h1>\n' +
+        '                <h1 class="movieTitle" id="movie">' + setInputValue().title + '</h1>\n' +
         '\n' +
         '                <div class="importantMovieInfo">\n' +
-        '                    <h4 class="movieInfo" id="inputYear">'+setInputValue().year+'</h4>\n' +
+        '                    <h4 class="movieInfo" id="inputYear">'+ setInputValue().year +'</h4>\n' +
         '                    <h4 class="movieInfo">|</h4>\n' +
-        '                    <h4 class="movieInfo" id="inputPG">'+ "PG: "+setInputValue().pg +' </h4>\n' +
+        '                    <h4 class="movieInfo" id="inputPG">'+ "PG: "+ setInputValue().pg +' </h4>\n' +
         '                    <h4 class="movieInfo">|</h4>\n' +
-        '                    <h4 class="movieInfo" id="inputLength">'+setInputValue().duration + ' minutes' + '</h4>\n' +
+        '                    <h4 class="movieInfo" id="inputLength">'+ setInputValue().duration + ' minutes' + '</h4>\n' +
         '                </div>\n' +
         '\n' +
         '                <h4 class="movieInfoHeader">Cast:</h4>\n' +
-        '                <h4 class="movieInfo" id="inputCast">'+setInputValue().cast +'</h4>\n' +
+        '                <h4 class="movieInfo" id="inputCast">'+ setInputValue().cast +'</h4>\n' +
         '\n' +
         '                <h4 class="movieInfoHeader">Description:</h4>\n' +
-        '                <h4 class="movieInfo" id="inputDescription">'+setInputValue().description +'</h4>\n' +
+        '                <h4 class="movieInfo" id="inputDescription">'+ setInputValue().description +'</h4>\n' +
         '\n' +
         '                <div class="cardButton_div">\n' +
         '                    <button class="button" id="edit_button">Edit</button>\n' +
