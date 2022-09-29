@@ -21,8 +21,6 @@ services:
         build:
             context: ..
             dockerfile: ./docker/java/Dockerfile
-            args:
-                JAR: "DuzeKino-0.0.1-SNAPSHOT.jar"
         image: duze_backend
         container_name: duze_backend
         ports:
