@@ -8,8 +8,6 @@ services:
         container_name: duze_db
         ports:
             - "3306:3306"
-        networks:
-            - duze_network
         environment:
             MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
             # MYSQL_USER: "${MYSQL_USER}"
@@ -28,8 +26,6 @@ services:
         container_name: duze_backend
         ports:
             - "8080:8080"
-        networks:
-            - duze_network
         environment:
             SPRING_DATASOURCE_URL: "jdbc:mysql://db:3306/Kino"
             SPRING_DATASOURCE_USERNAME: "${MYSQL_USERNAME}"
@@ -44,5 +40,3 @@ services:
 #        container_name: duze_frontend
 #        ports:
 #            - "63342:63342"
-#        networks:
-#            - duze_network
