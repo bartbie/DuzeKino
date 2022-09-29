@@ -32,10 +32,11 @@ services:
         depends_on:
             - db
 
-#    frontend:
-#        build:
-#            context: ./js/.
-#        image: duze_frontend
-#        container_name: duze_frontend
-#        ports:
-#            - "63342:63342"
+    frontend:
+        build:
+            context: ..
+            dockerfile: ./docker/js/Dockerfile
+        image: duze_frontend
+        container_name: duze_frontend
+        ports:
+            - "80:63342"
