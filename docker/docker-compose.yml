@@ -36,6 +36,8 @@ services:
         build:
             context: ..
             dockerfile: ./docker/js/Dockerfile
+            args:
+                NGINX_CONFIG_PATH: ./docker/js/nginx.conf
         image: duze_frontend
         container_name: duze_frontend
         ports:
