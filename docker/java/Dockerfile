@@ -1,17 +1,16 @@
-FROM maven:3.8.6-openjdk-18 AS build
+FROM openjdk:17
 MAINTAINER bartbie37@gmail.com
 
-WORKDIR usr/src/app
 
-COPY ./src/main/ ./src
-COPY ./pom.xml .
-RUN mvn -f /usr/src/app/pom.xml clean package
+WORKDIR /app
 
+COPY .mvn/ .mvn
+COPY mvnw ./
+COPY pom.xml ./
+RUN ./mvnw dependency:go-offline
 
-FROM gcr.io/distroless/java
+COPY src ./src
 
-ARG JAR
-
-COPY --from=build ./target/"${JAR}" ./app.jar
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","app.jar"]
+
+CMD ["./mvnw", "spring-boot:run"]
