@@ -64,20 +64,25 @@ function setInputValueFetched(movieList){
 
     return input
 }
-function fetch(endpoint, method, body) {
-    let xmlHttp = new XMLHttpRequest();
-    xmlHttp.open(method,`http://localhost:8080/${endpoint}`, false); // false for synchronous request
-    xmlHttp.send(body);
-    return xmlHttp.responseText;
+
+const XML_HTTP = new XMLHttpRequest();
+
+function fetchStuff(endpoint, method, body) {
+    XML_HTTP.open(method,`http://localhost:8080/${endpoint}`, false); // false for synchronous request
+    XML_HTTP.send(body);
+    return JSON.parse(XML_HTTP.responseText);
 }
 
-const movieFetch = (method, body) => fetch("api/v1/Movie", method, body)
+const movieFetch = (method, body) => fetchStuff("api/v1/Movie", method, body)
 
-function fetchAllMovies(){
+function fetchAllMovies() { // returns array of movies
     return movieFetch("GET", null);
 }
 
 out(fetchAllMovies())
+
+const movies = fetchAllMovies()
+
 
 //We definitely need paramater to pass in the movieCard variable. maybe something like: document.getElementById("movieYear").setAttribute(variableName)
 //We definitely need paramater to pass in the movieCard variable. maybe something like: document.getElementById("movieYear").setAttribute(variableName)
