@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -36,20 +37,26 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    ResponseEntity<User> authorize(@RequestBody UserCredentials userCredentials) throws UserNotFoundException {
-        String username = userCredentials.getUsername();
-        String password = userCredentials.getPassword();
-        User user = userService.getUserByUsername(username);
-        if (user.getPassword().equalsIgnoreCase(password)) {
-            return new ResponseEntity<>(user, HttpStatus.OK);
+    ResponseEntity<User> authorize(@RequestBody User user) throws UserNotFoundException {
+        String username = user.getUsername();
+        String password = user.getPassword();
+        User userFromDatabase = userService.getUserByUsername(username);
+        if (userFromDatabase.getPassword().equalsIgnoreCase(password)) {
+            return new ResponseEntity<>(userFromDatabase, HttpStatus.OK);
         }
-        return new ResponseEntity<>(user, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(userFromDatabase, HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("/registration")
     ResponseEntity<User> register(@RequestBody User user) {
-        user.setPermission(Permission.BASIC);
-        userService.saveUser(user);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        String username = user.getUsername();
+        try {
+            User userFromDatabase = userService.getUserByUsername(username);
+            return new ResponseEntity<>(new User(), HttpStatus.NOT_FOUND);
+        } catch (UserNotFoundException e) {
+            user.setPermission(Permission.BASIC);
+            userService.saveUser(user);
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        }
     }
 }
