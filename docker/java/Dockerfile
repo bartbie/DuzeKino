@@ -3,8 +3,8 @@ MAINTAINER bartbie37@gmail.com
 
 WORKDIR usr/src/app
 
-COPY ../src/main/ ./src
-COPY ../pom.xml .
+COPY ./src/main/ ./src
+COPY ./pom.xml .
 RUN mvn -f /usr/src/app/pom.xml clean package
 
 

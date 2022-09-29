@@ -19,7 +19,8 @@ services:
 
     backend:
         build:
-            context: ./java/.
+            context: ..
+            dockerfile: ./java/Dockerfile
             args:
                 JAR: "DuzeKino-0.0.1-SNAPSHOT.jar"
         image: duze_backend
