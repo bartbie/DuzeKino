@@ -26,9 +26,10 @@ services:
         ports:
             - "8080:8080"
         environment:
-            SPRING_DATASOURCE_URL: "jdbc:mysql://db:3306/kino"
-            SPRING_DATASOURCE_USERNAME: "${MYSQL_USERNAME}"
-            SPRING_DATASOURCE_PASSWORD: "${MYSQL_PASSWORD}"
+            SPRING_DATABASE_URL: "jdbc:mysql://db:3306/kino"
+            SPRING_DATABASE_USERNAME: "${MYSQL_USERNAME}"
+            SPRING_DATABASE_PASSWORD: "${MYSQL_PASSWORD}"
+            SPRING_PROFILES_ACTIVE: "prod"
         depends_on:
             - db
 

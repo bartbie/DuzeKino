@@ -1,7 +1,6 @@
 FROM openjdk:17
 MAINTAINER bartbie37@gmail.com
 
-
 WORKDIR /app
 
 COPY .mvn/ .mvn
