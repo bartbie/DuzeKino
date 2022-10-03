@@ -4,13 +4,18 @@
 }
 
 :root button {
-    background-color: #d65a31;
+    background-color: rgba(214, 90, 49, 0.86);
     color: rgb(239, 230, 230);
     height: 25px;
     width: 100px;
     margin: 4px;
     border-radius: 7px;
     cursor: pointer;
+}
+
+:root button:hover{
+    background-color: rgb(239, 230, 230);
+    color: #d65a31;
 }
 
 body{
