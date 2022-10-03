@@ -111,7 +111,7 @@ registerBtn.addEventListener("click", function (e) {
     e.preventDefault();
 
     out("Before registration Fetch")
-    fetch("http://localhost:7070/registration", {
+    fetch("http://localhost:8080/registration", {
         method: "POST",
         body: JSON.stringify({
             username: regUserFld.value,

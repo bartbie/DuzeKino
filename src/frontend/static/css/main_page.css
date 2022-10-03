@@ -4,7 +4,7 @@
 }
 
 :root button {
-    background-color: rgb(130, 126, 126);
+    background-color: #d65a31;
     color: rgb(239, 230, 230);
     height: 25px;
     width: 100px;
@@ -14,18 +14,24 @@
 }
 
 body{
-    background-color: var(--primary-color);
+    background-color:#060A0E;
     margin: 0;
     padding: 0;
 }
 
 #navbar_div{
     outline: white solid 2px;
-    background-color: var(--secondary-color);
+    background-color: #161B22;
     height: 105px;
     display: flex;
     justify-content: space-between;
 
+}
+
+.HeaderSections{
+    display: flex;
+    padding-top: 35px;
+    padding-right: 120px;
 }
 
 .navbar_icon{
@@ -45,6 +51,12 @@ body{
 #username{
     color: white;
     padding: 17px;
+}
+
+.HeaderSections{
+    color: #eeeeee;
+    font-family: "Times New Roman";
+    font-size: 24px;
 }
 
 #logout_div{
@@ -72,6 +84,7 @@ body{
 .addMovie_div{
     padding-left: 40px;
     padding-bottom: 20px;
+    padding-top: 20px;
 
 }
 
@@ -80,7 +93,7 @@ body{
 }
 
 #title{
-    color: #d7882b;
+    color: #eeeeee;
     font-size: 95px;
     margin: auto;
 }
@@ -88,7 +101,7 @@ body{
 .movieCard{
     overflow: auto;
     display: flex;
-    background-color: #333333;
+    background-color: #161B22;
     padding: 15px;
     height: 430px;
     width: 700px;
@@ -103,8 +116,6 @@ body{
     width: 330px;
     padding-right: 15px;
 }
-
-
 
 .movieTitle{
     color: white;
