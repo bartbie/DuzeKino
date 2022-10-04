@@ -111,7 +111,7 @@ registerBtn.addEventListener("click", function (e) {
     e.preventDefault();
 
     out("Before registration Fetch")
-    fetch("http://localhost:7070/registration", {
+    fetch("http://localhost:8080/registration", {
         method: "POST",
         body: JSON.stringify({
             username: regUserFld.value,
@@ -146,7 +146,7 @@ loginBtn.addEventListener("click", function (e) {
     e.preventDefault();
 
     // out("Before Fetch")
-    fetch("http://localhost:7070/login", {
+    fetch("http://localhost:8080/login", {
         method: "POST",
         body: JSON.stringify({
             username: userInpFld.value,

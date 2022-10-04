@@ -44,7 +44,7 @@ public class UserController {
         if (userFromDatabase.getPassword().equalsIgnoreCase(password)) {
             return new ResponseEntity<>(userFromDatabase, HttpStatus.OK);
         }
-        return new ResponseEntity<>(userFromDatabase, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(new User(), HttpStatus.NOT_FOUND);
     }
 
     @PostMapping("/registration")
