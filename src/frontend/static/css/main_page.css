@@ -169,3 +169,11 @@ body{
 .cardButton_div{
     display: flex;
 }
+
+#displayImage{
+    height:430px;
+    width:330px;
+    border:1px solid white;
+    background-position:center;
+    background-size:cover;
+}
