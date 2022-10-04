@@ -18,6 +18,9 @@ let popupLength = document.getElementById("popupLength")
 let popupCast_id = document.getElementById("popupCast_id")
 let popupDescription = document.getElementById("popupDescription")
 
+const input_image =document.querySelector("#input_image");
+letuploaded_image="";
+
 function toClosest(integer) {
     if (integer >= 17) {
         return "SEVENTEEN";
@@ -89,7 +92,7 @@ const movies = fetchAllMovies()
 function addMovieCard(){
     const movieCard = elementFromHtml('<div class="movieCard">\n' +
         '            \n' +
-        '            <img src="image/shrek_movie.jpg" class="movie_image">\n' +
+        '            <img src=" '+setInputValue().image +'" class="movie_image">\n' +
         '            <div class="card_info">\n' +
         '                <h1 class="movieTitle" id="movie">' + setInputValue().title + '</h1>\n' +
         '\n' +
@@ -142,6 +145,15 @@ function saveMovie(event){
 
 }
 
+function setCoverImage(){
+    const reader=new FileReader();
+    reader.addEventListener("load",()=>{
+        let uploaded_image = reader.result;
+        document.querySelector("#displayImage").style.backgroundImage=`url(${uploaded_image})`;
+    });
+     return reader.readAsDataURL(this.files[0]);
+}
+
 //KEV AND MADALIN
 
 let popup = document.getElementById('popup');
@@ -169,6 +181,8 @@ saveMoviePopup_btn.addEventListener('click', clear)
 cancelPopup_btn.addEventListener('click', closePopup)
 
 editMoviePopup_btn.addEventListener('click', openPopup)
+
+input_image.addEventListener("change", setCoverImage)
 
 
 
