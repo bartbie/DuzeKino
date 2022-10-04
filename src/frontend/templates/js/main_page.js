@@ -68,23 +68,23 @@ function setInputValueFetched(movieList){
     return input
 }
 
-const XML_HTTP = new XMLHttpRequest();
-
-function fetchStuff(endpoint, method, body) {
-    XML_HTTP.open(method,`http://localhost:8080/${endpoint}`, false); // false for synchronous request
-    XML_HTTP.send(body);
-    return JSON.parse(XML_HTTP.responseText);
-}
-
-const movieFetch = (method, body) => fetchStuff("api/v1/Movie", method, body)
-
-function fetchAllMovies() { // returns array of movies
-    return movieFetch("GET", null);
-}
-
-out(fetchAllMovies())
-
-const movies = fetchAllMovies()
+// const XML_HTTP = new XMLHttpRequest();
+//
+// function fetchStuff(endpoint, method, body) {
+//     XML_HTTP.open(method,`http://localhost:8080/${endpoint}`, false); // false for synchronous request
+//     XML_HTTP.send(body);
+//     return JSON.parse(XML_HTTP.responseText);
+// }
+//
+// const movieFetch = (method, body) => fetchStuff("api/v1/Movie", method, body)
+//
+// function fetchAllMovies() { // returns array of movies
+//     return movieFetch("GET", null);
+// }
+//
+// out(fetchAllMovies())
+//
+// const movies = fetchAllMovies()
 
 
 //We definitely need paramater to pass in the movieCard variable. maybe something like: document.getElementById("movieYear").setAttribute(variableName)
@@ -95,6 +95,40 @@ function addMovieCard(){
         '            <img src=" '+setInputValue().image +'" class="movie_image">\n' +
         '            <div class="card_info">\n' +
         '                <h1 class="movieTitle" id="movie">' + setInputValue().title + '</h1>\n' +
+        '\n' +
+        '                <div class="importantMovieInfo">\n' +
+        '                    <h4 class="movieInfo" id="inputYear">'+ setInputValue().year +'</h4>\n' +
+        '                    <h4 class="movieInfo">|</h4>\n' +
+        '                    <h4 class="movieInfo" id="inputPG">'+ "PG: "+ setInputValue().pg +' </h4>\n' +
+        '                    <h4 class="movieInfo">|</h4>\n' +
+        '                    <h4 class="movieInfo" id="inputLength">'+ setInputValue().duration + ' minutes' + '</h4>\n' +
+        '                </div>\n' +
+        '\n' +
+        '                <h4 class="movieInfoHeader">Cast:</h4>\n' +
+        '                <h4 class="movieInfo" id="inputCast">'+ setInputValue().cast +'</h4>\n' +
+        '\n' +
+        '                <h4 class="movieInfoHeader">Description:</h4>\n' +
+        '                <h4 class="movieInfo" id="inputDescription">'+ setInputValue().description +'</h4>\n' +
+        '\n' +
+        '                <div class="cardButton_div">\n' +
+        '                    <button class="button" id="edit_button">Edit</button>\n' +
+        '                    <button class="button" id="delete_button">Delete</button>\n' +
+        '                </div>\n' +
+        '            </div>\n' +
+        '        </div>')
+
+    //Line 42 stores in a varibale the <div> called 'section_center' (line 32 in the html file)
+    const elementToAppendTO = document.querySelector('.section_center');
+    //Now i can append the movie card inside the section_center div so that can follow its styling
+    elementToAppendTO.appendChild(movieCard)
+}
+
+function addMovieCardFromDB(movie){
+    const movieCard = elementFromHtml('<div class="movieCard">\n' +
+        '            \n' +
+        '            <img src=" '+setInputValue().image +'" class="movie_image">\n' +
+        '            <div class="card_info">\n' +
+        '                <h1 class="movieTitle" id="movie">' + movie.title + '</h1>\n' +
         '\n' +
         '                <div class="importantMovieInfo">\n' +
         '                    <h4 class="movieInfo" id="inputYear">'+ setInputValue().year +'</h4>\n' +
@@ -169,6 +203,26 @@ const newMoviePopup_btn = document.getElementById("newMovie_button")
 const editMoviePopup_btn = document.getElementById("editMovie_button")
 const saveMoviePopup_btn = document.getElementById("saveMovie_btn")
 const cancelPopup_btn = document.getElementById("cancel_btn")
+
+
+
+function fetchMovie() {
+    out("inside fetch")
+    return  fetch("http://localhost:8080/api/v1/Movie/getAllMovies").then(response => response.json());
+}
+
+
+async function createMovieTblFromDB(btn) {
+    out("fetch photos")
+    let movies = await fetchMovie();
+    out(movies);
+    // let userArr = users.user;
+
+    movies.forEach(movie => addMovieCardFromDB(movie))
+}
+
+// createMovieTblFromDB()
+setInterval(createMovieTblFromDB, 1000)
 
 
 newMoviePopup_btn.addEventListener('click', openPopup)
