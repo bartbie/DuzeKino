@@ -4,7 +4,7 @@
 }
 
 :root button {
-    background-color: rgb(130, 126, 126);
+    background-color: #D65A31;
     color: rgb(239, 230, 230);
     height: 25px;
     width: 100px;
@@ -14,14 +14,14 @@
 }
 
 body{
-    background-color: var(--primary-color);
+    background-color: #060a0e;
     margin: 0;
     padding: 0;
 }
 
 #navbar_div{
     outline: white solid 2px;
-    background-color: var(--secondary-color);
+    background-color: #161b22;
     height: 105px;
     display: flex;
     justify-content: space-between;
@@ -47,19 +47,9 @@ body{
     padding: 17px;
 }
 
-.switchMBdiv{
-    padding: 41px;
-    padding-left: 0px;
+.switchMBDiv{
+    padding: 41px 41px 41px 0px;
 }
-
-/*.switchMB{
-    text-decoration: none;
-    color: white;
-    font-size: 20px;
-    font-weight: bold;
-    margin-right: 10px;
-}*/
-
 
 #logout_div{
     display: flex;
@@ -71,6 +61,7 @@ body{
 .section_two{
     display: flex;
     padding-top: 45px;
+    margin-left: 295px;
 }
 
 #add_bookings button{
@@ -82,14 +73,9 @@ body{
     padding: 4px;
 }
 
-.button{
+.switchButton{
     background-color: #d65a31db;
-    color: rgb(239, 230, 230);
-    height: 25px;
-    width: 100px;
-    margin: 4px;
-    border-radius: 7px;
-    cursor: pointer;
+
 }
 
 .button:hover{
@@ -97,4 +83,20 @@ body{
     color: #d65a31db;
 }
 
+.table_div{
+    text-align: center;
+}
+.table{
+    margin-left: 310px;
+    border: 2px solid white;
+}
+th{
+    background-color: #393E46;
+    color: white;
+    height: 35px;
+    width: 177px;
+}
+tr{
+    color: white;
+}
 

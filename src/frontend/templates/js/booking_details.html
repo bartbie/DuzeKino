@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Booking Details</title>
     <link rel="stylesheet" href="/src/frontend/static/css/booking_details.css">
-
 </head>
 <body>
 <div id="navbar_div">
@@ -13,10 +12,9 @@
         <img src="image/user_icon.png" class="navbar_icon" id="user_icon">
         <h2 id="username">Username</h2>
     </div>
-    <div class="switchMBdiv">
-
-        <button class= "button" >Movies</button>
-        <button class ="button" >Bookings</button>
+    <div class="switchMBDiv">
+        <button class= "switchButton" >Movies</button>
+        <button class ="switchButton" >Bookings</button>
     </div>
 
     <div>
@@ -25,8 +23,8 @@
 
 </div>
 <div class="section_two">
-    <div id = "add_bookings">
-        <button>Add bookings</button>
+    <div id ="add_bookings_Div">
+        <button class="addBookings" id="addBookings">Add bookings</button>
     </div>
     <div id="search_bookings">
         <input type="text" placeholder="Search">
@@ -34,6 +32,20 @@
 
 </div>
 
-<script src="js/main_page.js"></script>
+<div class="table_div">
+    <h1 style="color: white">Bookings</h1>
+    <table class="table" id="tblBookings">
+        <tr>
+            <th>Booking ID</th>
+            <th>Showing Id</th>
+            <th>Customer Name</th>
+            <th>Email</th>
+            <th>Phone Nr</th>
+            <th>Nr Of Seat</th>
+        </tr>
+    </table>
+</div>
+
+<script src="js/booking_details.js"></script>
 </body>
 </html>
