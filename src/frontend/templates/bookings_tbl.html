@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bookings</title>
+  <link rel="stylesheet" href="../static/css/booking_details.css">
+</head>
+<body>
+<div id="navbar_div">
+
+  <div id="usernameAndImage_div">
+    <img src="image/user_icon.png" class="navbar_icon" id="user_icon">
+    <h2 id="username">Username</h2>
+  </div>
+  <div class="switchMBDiv">
+    <button class= "switchButton" >Movies</button>
+    <button class ="switchButton" >Bookings</button>
+  </div>
+
+  <div>
+    <img src="image/logout_icon.png" class="navbar_icon" id="logout_icon">
+  </div>
+
+</div>
+<div class="section_two">
+  <div id ="add_bookings_Div">
+    <button class="addBookings" id="addBookings">Add bookings</button>
+  </div>
+  <div id="search_bookings">
+    <input type="text" placeholder="Search">
+  </div>
+
+</div>
+
+<div class="table_div">
+  <h1 style="color: white">Bookings</h1>
+  <table class="table" id="bookingsTbl">
+    <tr>
+      <th style="width: 95px;">Booking ID</th>
+      <th style="width: 95px;">Showing Id</th>
+      <th style="width: 200px;">Customer Name</th>
+      <th style="width: 200px;">Email</th>
+      <th >Phone Nr</th>
+      <th style="width: 95px;">Nr Of Seat</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </table>
+</div>
+
+<script src="js/booking_details.js"></script>
+
+</body>
+</html>

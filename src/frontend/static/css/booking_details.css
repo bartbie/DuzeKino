@@ -3,10 +3,10 @@
     --secondary-color: #262626;
 }
 
-:root button {
+button {
     background-color: #D65A31;
     color: rgb(239, 230, 230);
-    height: 25px;
+    height: 35px;
     width: 100px;
     margin: 4px;
     border-radius: 7px;
@@ -87,7 +87,7 @@ body{
     text-align: center;
 }
 .table{
-    margin-left: 310px;
+    margin-left: 188px;
     border: 2px solid white;
 }
 th{
@@ -98,5 +98,29 @@ th{
 }
 tr{
     color: white;
+}
+
+.updateBtn{
+    height: 25px;
+}
+.deleteBtn{
+    height: 25px;
+}
+
+.seatNr{
+    position: relative;
+    /*display: inline-block;*/
+}
+.seatNr .showSeatNr{
+    visibility: visible;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
 }
 

@@ -131,7 +131,7 @@ function addMovieCardFromDB(movie){
         '                <h1 class="movieTitle" id="movie">' + movie.title + '</h1>\n' +
         '\n' +
         '                <div class="importantMovieInfo">\n' +
-        '                    <h4 class="movieInfo" id="inputYear">'+ setInputValue().year +'</h4>\n' +
+        '                    <h4 class="movieInfo" id="inputYear">'+ movie.year +'</h4>\n' +
         '                    <h4 class="movieInfo">|</h4>\n' +
         '                    <h4 class="movieInfo" id="inputPG">'+ "PG: "+ setInputValue().pg +' </h4>\n' +
         '                    <h4 class="movieInfo">|</h4>\n' +
@@ -221,8 +221,8 @@ async function createMovieTblFromDB(btn) {
     movies.forEach(movie => addMovieCardFromDB(movie))
 }
 
-// createMovieTblFromDB()
-setInterval(createMovieTblFromDB, 1000)
+createMovieTblFromDB()
+// setInterval(createMovieTblFromDB, 1000)
 
 
 newMoviePopup_btn.addEventListener('click', openPopup)
