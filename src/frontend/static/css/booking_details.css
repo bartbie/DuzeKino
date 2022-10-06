@@ -124,3 +124,45 @@ tr{
     position: absolute;
 }
 
+.popupBookings {
+    text-align: center;
+    overflow: hidden;
+    outline: white solid;
+    width: 50%;
+    height: 70%;
+    background: #161B22;
+    color: #fff;
+    border-radius: 7px;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    padding: 0 2% 2%;
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s;
+
+
+
+
+
+    visibility: visible;
+    margin-top: 26%;
+    transform: translate(-50%,-50%) scale(1);
+}
+#popoupBookingsField{
+
+    justify-content:space-evenly;
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+#popoupBookingsField input{
+    width: 40%;
+}
+
+
+.open-popup {
+    visibility: visible;
+    margin-top: 26%;
+    transform: translate(-50%, -50%) scale(1);
+}
+

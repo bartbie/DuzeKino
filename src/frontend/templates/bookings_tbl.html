@@ -48,7 +48,64 @@
   </table>
 </div>
 
+
+
+
+
+
+
+<div class="popupBookings" id="popupBookings">
+  <h1>Insert your data</h1>
+
+  <div id="popoupBookingsField">
+
+    <div class="inputBooking_class">
+
+      <label for="bookinId">Booking ID:</label>
+      <br>
+      <input type="number" id="bookinId" maxlength="4" ><br><br>
+
+
+      <label for="showingId">Showing ID:</label>
+      <br>
+      <input type="number" id="showingId" maxlength="4" ><br><br>
+
+
+      <label for="customerName">Customer Name:</label>
+      <br>
+      <input type="text" id="customerName"><br><br>
+
+
+      <label for="email">Email:</label>
+      <br>
+      <input type="text" id="email" maxlength="20"><br><br>
+
+
+      <label for="phoneNr">Phone Nr:</label>
+      <br>
+      <input type="number" id="phoneNr" maxlength="10" ><br><br>
+
+
+      <label for="nrOfSeats">Nr of Seats:</label>
+      <br>
+      <input type="number" id="nrOfSeats" maxlength="3" ><br><br>
+
+    </div>
+  </div>
+
+  <div class="buttons_div">
+    <button type="button" class="button" id="saveBooking_btn" onclick="setInputValue()">Save</button>
+    <button type="button" class="button" id="cancelBooking_btn">Cancel</button>
+  </div>
+</div>
+
+
+
+
+
+
 <script src="js/booking_details.js"></script>
+<script src = "js/main_page.js"></script>
 
 </body>
 </html>
