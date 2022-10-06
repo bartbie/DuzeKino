@@ -22,15 +22,17 @@ public final class Showing {
 
     @NotNull @NonNull private LocalDateTime time;
 
-    @ManyToOne()
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name="movieId")
     @NotNull @NonNull
     private Movie movie;
 
-    @OneToOne()
+    @ManyToOne()
     @JoinColumn(name="theaterId")
     @NotNull @NonNull
     private Theater theater;
+
+
 
 
 

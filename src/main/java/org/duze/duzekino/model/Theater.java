@@ -20,6 +20,7 @@ public final class Theater {
     @Setter(AccessLevel.NONE)
     @NotNull
     private Long theaterId;
+
     @NotNull @NonNull private String name;
 
 }
