@@ -25,8 +25,7 @@ class MovieServiceTest {
     @BeforeEach
     void setUp() {
         movie = new Movie("ExampleTitle", "desc", 2000, Duration.ofMinutes(60), PG.SEVENTEEN);
-        repo.deleteAll();
-        repo.save(movie);
+        TestUtils.setUpRepo(movie, repo);
     }
 
     //    @AfterEach
