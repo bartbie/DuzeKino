@@ -5,7 +5,7 @@ export const URL = "http://localhost:8080";
  * @param endpoint {string} endpoint at backend
  * @param method {"POST" | "GET" | "PUT" | "DELETE"} "POST", "GET" etc.
  * @param body {Object | null} object that will be stringified and sent with request; null when fetching
- * @returns {Object}
+ * @returns {Promise<Object>}
  * @throws {Error} when response not ok
  */
 export async function sendRequest(endpoint, method, body) {
