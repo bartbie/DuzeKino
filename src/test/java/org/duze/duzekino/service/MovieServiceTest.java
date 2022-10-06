@@ -1,5 +1,6 @@
 package org.duze.duzekino.service;
 
+import org.duze.duzekino.exception.MovieNotFoundException;
 import org.duze.duzekino.model.Movie;
 import org.duze.duzekino.model.PG;
 import org.duze.duzekino.repository.MovieRepository;

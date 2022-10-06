@@ -1,7 +1,7 @@
 package org.duze.duzekino.service;
 
+import org.duze.duzekino.exception.UserNotFoundException;
 import org.duze.duzekino.model.User;
-import org.duze.duzekino.model.UserCredentials;
 import org.duze.duzekino.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ public class UserService {
         return (List<User>) userRepository.findAll();
     }
 
-    public User getUserByUsername(String username) throws UserNotFoundException{
+    public User getUserByUsername(String username) throws UserNotFoundException {
         Optional<User> result = userRepository.findUserByUsername(username);
         if (result.isPresent()) {
           return result.get();

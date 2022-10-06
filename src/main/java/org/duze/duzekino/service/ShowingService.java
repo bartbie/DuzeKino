@@ -3,6 +3,7 @@ package org.duze.duzekino.service;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.duze.duzekino.exception.ShowingException;
 import org.duze.duzekino.model.Showing;
 import org.duze.duzekino.repository.ShowingRepository;
 import org.springframework.stereotype.Service;
