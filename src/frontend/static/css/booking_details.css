@@ -124,6 +124,7 @@ tr{
     position: absolute;
 }
 
+
 .popupBookings {
     text-align: center;
     overflow: hidden;
@@ -145,7 +146,7 @@ tr{
 
 
 
-    visibility: visible;
+    visibility: hidden;
     margin-top: 26%;
     transform: translate(-50%,-50%) scale(1);
 }
