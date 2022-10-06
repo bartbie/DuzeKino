@@ -28,14 +28,14 @@ export function toISO(minutes) {
     return `PT${minutes}M`;
 }
 
-export function movieRequest(method, body) {
-    return sendRequest(MOVIE_ENDPOINT, method, body);
+export async function movieRequest(method, body) {
+    return await sendRequest(MOVIE_ENDPOINT, method, body);
 }
 
-export function fetchAllMovies() { // returns array of movies
-    return movieRequest("GET", null);
+export async function fetchAllMovies() { // returns array of movies
+    return await movieRequest("GET", null);
 }
 
-export function saveMovie(movie) {
-    return movieRequest("POST", JSON.stringify(movie));
+export async function saveMovie(movie) {
+    return await movieRequest("POST", JSON.stringify(movie));
 }

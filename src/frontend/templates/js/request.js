@@ -8,25 +8,17 @@ export const URL = "http://localhost:8080";
  * @returns {Object}
  * @throws {Error} when response not ok
  */
-export function sendRequest(endpoint, method, body) {
-    const async_insides = async () => {
-        let response = await fetch(URL + endpoint, {
-            method: method,
-            body: body == null ? null : JSON.stringify(body),
-            headers: {
-                "Content-type": "application/json"
-            }
-        });
-        if (!response.ok) {
-            const message = `An error has occurred: ${response.status}`;
-            throw new Error(message);
+export async function sendRequest(endpoint, method, body) {
+    let response = await fetch(URL + endpoint, {
+        method: method,
+        body: body == null ? null : JSON.stringify(body),
+        headers: {
+            "Content-type": "application/json"
         }
-        return await response.json();
+    });
+    if (!response.ok) {
+        const message = `An error has occurred: ${response.status}`;
+        throw new Error(message);
     }
-    let x = null;
-    async_insides().catch((reason) => {
-        throw new Error(reason)
-    }).then((data) => x = data)
-    return x;
-
+    return await response.json();
 }
