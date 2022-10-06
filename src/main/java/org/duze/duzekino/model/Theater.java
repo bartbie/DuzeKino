@@ -16,11 +16,14 @@ import javax.persistence.Id;
 @EqualsAndHashCode
 public final class Theater {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
     @NotNull
     private Long theaterId;
 
     @NotNull @NonNull private String name;
 
+    public Theater(@NonNull String name) {
+        this.name = name;
+    }
 }

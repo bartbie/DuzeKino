@@ -8,47 +8,86 @@ import org.duze.duzekino.model.Showing;
 import org.duze.duzekino.repository.ShowingRepository;
 import org.springframework.stereotype.Service;
 
-import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Predicate;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public final class ShowingService {
-    final ShowingRepository showingRepository;
+    final ShowingRepository showingRepo;
+    final MovieService movieService;
 
-    //create
-    //read
-    //update
-    //delete
-
-
-    public List<Showing> getShowings() {
-        return showingRepository.findAll();
+    public ShowingException newException(String msg) {
+        log.error(msg);
+        return new ShowingException(msg);
     }
 
-    public Showing addShowing(@NonNull Showing showing){
-        showingRepository.save(showing);
+    public boolean inDatabase(@NonNull Showing showing) {
+        Predicate<Showing> movieEquals = s -> s.getMovie().equals(showing.getMovie());
+        Predicate<Showing> theaterEquals = s -> s.getTheater().equals(showing.getTheater());
+        return getShowings().stream().anyMatch(movieEquals.and(theaterEquals));
+    }
+
+    public List<Showing> getShowings() {
+        return showingRepo.findAll();
+    }
+
+    public Optional<Showing> findShowingById(long id) {
+        return showingRepo.findById(id);
+    }
+
+    public Optional<Showing> findShowingByMovieId(@NonNull Long movieId) {
+        return showingRepo.findShowingByMovieId(movieId);
+    }
+
+    public Showing addShowing(@NonNull Showing showing) throws ShowingException {
+        if (inDatabase(showing)) {
+            throw newException("Showing already in Database");
+        }
+        log.info("Adding %s to Database".formatted(showing));
+        showingRepo.save(showing);
         return showing;
     }
 
-    // Exception
-    public Showing findShowingByMovieId(@NonNull Long movieId){
-        return showingRepository.findShowingByMovieId(movieId);
+    // for internal use only
+    private void deleteShowingUnchecked(@NonNull Showing showing) {
+        log.info("Removing %s".formatted(showing));
+        showingRepo.delete(showing);
     }
 
-    public void deleteShowingByMovieId(@NonNull Long movieId) {
-        showingRepository.deleteShowingByMovieId(movieId);
+    public void deleteShowing(@NonNull Showing showing) throws ShowingException {
+        if (!inDatabase(showing)) {
+            throw newException("Showing not in Database!");
+        }
+        deleteShowingUnchecked(showing);
     }
 
-    public Showing updateShowing(@NonNull Showing showing){
-        Showing oldShowing = findShowingByMovieId(showing.getMovie().getMovieId());
-        oldShowing.setTime(showing.getTime());
-        oldShowing.setTheater(showing.getTheater());
-        oldShowing.setMovie(showing.getMovie());
-        showingRepository.save(oldShowing);
+    public void deleteShowingByMovieId(long movieId) throws ShowingException {
+        findShowingByMovieId(movieId)
+                .ifPresentOrElse(
+                        this::deleteShowingUnchecked,
+                        () -> {
+                            throw newException("No such Movie with id %d".formatted(movieId));
+                        });
+    }
+
+    public Showing updateShowing(@NonNull Showing oldShowing, @NonNull Showing newShowing) {
+        var oldInfo = oldShowing.toString();
+        oldShowing.setTime(newShowing.getTime());
+        oldShowing.setTheater(newShowing.getTheater());
+        oldShowing.setMovie(newShowing.getMovie());
+        showingRepo.save(oldShowing);
+        log.info("Updated Showing from %s to %s".formatted(oldInfo, oldShowing));
         return oldShowing;
     }
 
-
+    public Showing updateShowingById(long id, @NonNull Showing newShowing) throws ShowingException {
+        var oldShowing = findShowingById(id);
+        if (oldShowing.isEmpty()) {
+            throw newException("No such Showing with id %d".formatted(id));
+        }
+        return updateShowing(oldShowing.get(), newShowing);
+    }
 }

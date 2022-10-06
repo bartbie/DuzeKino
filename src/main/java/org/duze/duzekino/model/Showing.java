@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public final class Showing {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
     @NotNull
     private Long id;
@@ -32,11 +32,9 @@ public final class Showing {
     @NotNull @NonNull
     private Theater theater;
 
-
-
-
-
-
-
-
+    public Showing(@NonNull LocalDateTime time, @NonNull Movie movie, @NonNull Theater theater) {
+        this.time = time;
+        this.movie = movie;
+        this.theater = theater;
+    }
 }
