@@ -12,7 +12,7 @@ export function sendRequest(endpoint, method, body) {
     const async_insides = async () => {
         let response = await fetch(URL + endpoint, {
             method: method,
-            body: JSON.stringify(body),
+            body: body == null ? null : JSON.stringify(body),
             headers: {
                 "Content-type": "application/json"
             }
