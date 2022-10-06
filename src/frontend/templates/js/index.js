@@ -1,3 +1,7 @@
+function out(any){
+    console.log(any)
+}
+
 const rgForm = document.querySelector(".registrationForm")
 const loginForm = document.querySelector(".loginForm")
 
@@ -5,8 +9,6 @@ const rgFormlinkTag = document.querySelector(".rgFormlinkTag")
 const loginFormlinkTag = document.querySelector(".loginFormlinkTag")
 
 const headingOfForm = document.querySelector(".headingOfForm")
-
-const inpFld = document.querySelector(".inpFld")
 
 
 // Type Writing varriable and function
@@ -37,7 +39,6 @@ function switchToRGForm() {
     //Changes in CSS
     loginForm.style.visibility = "hidden";
     rgForm.style.visibility = "visible";
-    inpFld.value = "";
 }
 
 rgFormlinkTag.addEventListener("click", switchToRGForm)
@@ -53,14 +54,17 @@ function switchTologinForm() {
     //Changes in CSS
     rgForm.style.visibility = "hidden";
     loginForm.style.visibility = "visible";
-    inpFld.value = "";
 }
 
 loginFormlinkTag.addEventListener("click", switchTologinForm)
 
 
-//Fetching
-const out = (any) => console.log(any);
+
+
+
+
+
+//Fetching started for CURD operations
 
 const loginBtn = document.getElementById("login-btn")
 const registerBtn = document.getElementById("register-btn")
@@ -73,10 +77,40 @@ const regPassFld = document.querySelector(".regPassFld")
 const confirmPassFld = document.querySelector(".confirmPassFld")
 
 
+// handling error msg
+
+let lgAlertMsg = document.querySelector(".lgAlertMsg")
+let rgAlertMsg = document.querySelector(".rgAlertMsg")
+
+
+userInpFld.addEventListener("click", function (){
+    lgAlertMsg.innerHTML = ""
+})
+passInpFld.addEventListener("click", function (){
+    lgAlertMsg.innerHTML = ""
+})
+regUserFld.addEventListener("click", function (){
+    rgAlertMsg.innerHTML = ""
+})
+regEmailFld.addEventListener("click", function (){
+    rgAlertMsg.innerHTML = ""
+})
+regPassFld.addEventListener("click", function (){
+    rgAlertMsg.innerHTML = ""
+})
+confirmPassFld.addEventListener("click", function (){
+    rgAlertMsg.innerHTML = ""
+})
+
+
+
+
+// Register a new user
+
 registerBtn.addEventListener("click", function (e) {
     e.preventDefault();
 
-    out("Before Fetch")
+    out("Before registration Fetch")
     fetch("http://localhost:8080/registration", {
         method: "POST",
         body: JSON.stringify({
@@ -90,18 +124,28 @@ registerBtn.addEventListener("click", function (e) {
     }).then(function (response) {
         return response.json()
     }).then(function (data) {
-        if (data.permission) {
+        if (data.id) {
             window.location.href = "main_page.html"
         } else {
+            regUserFld.value = ""
+            regEmailFld.value = ""
+            regPassFld.value = ""
+            confirmPassFld.value = ""
+            rgAlertMsg.innerHTML = "username is already exist"
             console.log(data)
         }
     })
 })
 
+
+
+let loggedInUser = document.querySelector(".loggedInUsername");
+
+//Logging In'
 loginBtn.addEventListener("click", function (e) {
     e.preventDefault();
 
-    out("Before Fetch")
+    // out("Before Fetch")
     fetch("http://localhost:8080/login", {
         method: "POST",
         body: JSON.stringify({
@@ -111,18 +155,30 @@ loginBtn.addEventListener("click", function (e) {
         headers: {
             "Content-type": "application/json"
         }
-    }).then(function (response) {
-        return response.json()
     })
-        .then(function (data) {
+        .then(function (response) {
+            return response.json()
+        })
+        .then(async function (data) {
             if (data.id) {
                 window.location.href = "main_page.html"
             } else {
-                console.log(data)
+                userInpFld.value = ""
+                passInpFld.value = ""
+                lgAlertMsg.innerHTML = "Invalid user credentials"
+                out(lgAlertMsg)
+
             }
 
         })
 })
+
+loginBtn.addEventListener("click", function(){
+    loggedInUser.innerHTML = "fuck u"
+})
+
+
+
 
 
 // end
