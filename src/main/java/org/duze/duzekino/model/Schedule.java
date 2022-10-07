@@ -24,5 +24,15 @@ public class Schedule {
     private boolean fri;
     private boolean sat;
     private boolean sun;
+
+    public Schedule(boolean mon, boolean tue, boolean wed, boolean thu, boolean fri, boolean sat, boolean sun) {
+        this.mon = mon;
+        this.tue = tue;
+        this.wed = wed;
+        this.thu = thu;
+        this.fri = fri;
+        this.sat = sat;
+        this.sun = sun;
+    }
 }
 

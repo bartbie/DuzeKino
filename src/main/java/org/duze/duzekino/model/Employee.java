@@ -29,4 +29,10 @@ public class Employee {
     @JoinColumn(name = "scheduleId")
     private Schedule schedule;
 
+    public Employee(String fullName, String position, String email, Schedule schedule) {
+        this.fullName = fullName;
+        this.position = position;
+        this.email = email;
+        this.schedule = schedule;
+    }
 }
