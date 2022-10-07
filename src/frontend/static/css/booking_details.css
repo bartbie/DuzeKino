@@ -147,8 +147,8 @@ tr{
 
 
     visibility: hidden;
-    margin-top: 26%;
-    transform: translate(-50%,-50%) scale(1);
+    /*margin-top: 26%;*/
+    /*transform: translate(-50%,-50%) scale(1);*/
 }
 #popoupBookingsField{
 

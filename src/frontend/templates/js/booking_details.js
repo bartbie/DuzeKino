@@ -26,28 +26,28 @@ function createTable(booking) {
     let cell3 = row.insertCell(2)
     cell3.innerHTML= booking.nrOfSeats
 
-    // let cell4 = row.insertCell(3)
-    // cell4.innerHTML= user.password
-    //
-    // let cell5 = row.insertCell(4)
-    // cell5.innerHTML= "Fifth"
-    //
-    // let cell6 = row.insertCell(5)
-    // cell6.className = "seatNr"
-    // let showSeatNr = document.createElement("span")
-    // showSeatNr.className = "showSeatNr"
-    // // cell6.addEventListener("mouseover", showSeats)
-    // cell6.appendChild(showSeatNr)
-    // cell6.innerHTML= "Sixth"
+    let cell4 = row.insertCell(3)
+    cell4.innerHTML= "Fourth"
 
-    let cell7 = row.insertCell(3)
+    let cell5 = row.insertCell(4)
+    cell5.innerHTML= "Fifth"
+
+    let cell6 = row.insertCell(5)
+    cell6.className = "seatNr"
+    let showSeatNr = document.createElement("span")
+    showSeatNr.className = "showSeatNr"
+    // cell6.addEventListener("mouseover", showSeats)
+    cell6.appendChild(showSeatNr)
+    cell6.innerHTML= "Sixth"
+
+    let cell7 = row.insertCell(6)
     let updateButton = document.createElement("button")
     updateButton.innerHTML = "Update"
     updateButton.className = "updateBtn"
     updateButton.addEventListener("click", openPupUpForUpdatingBookings)
     cell7.appendChild(updateButton)
 
-    let cell8 = row.insertCell(4)
+    let cell8 = row.insertCell(7)
     let deleteButton = document.createElement("button")
     deleteButton.innerHTML = "Delete"
     deleteButton.className = "deleteBtn"
@@ -75,19 +75,32 @@ createTblFromDB()
 
     //Functionalities for save bookings
 
+
 const openPopUp = document.querySelector(".popupBookings")
+const closingPopUp = document.getElementById("cancelBooking_btn")
+
 function openPupUpForAddingBookings(){
     openPopUp.style.visibility = "visible"
+    openPopUp.style.marginTop = "26%";
+    openPopUp.style.transform = "translate(-50%,-50%) scale(1)";
 
 }
 addBookingBtn.addEventListener("click", openPupUpForAddingBookings)
 
+function closePopUpWindow(){
+    openPopUp.style.visibility = "hidden"
+}
+
+closingPopUp.addEventListener("click", closePopUpWindow)
 
     //Functionalities for Update bookings
 
 
 function openPupUpForUpdatingBookings(){
     openPopUp.style.visibility = "visible"
+
+    openPopUp.style.marginTop = "26%";
+    openPopUp.style.transform = "translate(-50%,-50%) scale(1)";
 
 }
 
