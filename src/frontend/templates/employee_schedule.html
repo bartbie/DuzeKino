@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/src/frontend/static/css/employee_schedule.css">
+</head>
+<body>
+<div id="navbar_div">
+
+  <div id="usernameAndImage_div">
+    <img src="image/user_icon.png" class="navbar_icon" id="user_icon">
+    <h2 id="username">Username</h2>
+  </div>
+
+  <div class="HeaderSections">
+    <div class="HeaderSectionsMovies">
+      <button >Movies</button>
+    </div>
+
+    <div class="HeaderSectionsBookings">
+      <button >Bookings</button>
+    </div>
+    <div class="HeaderSectionBookings">
+      <button>Schedule</button>
+    </div>
+  </div>
+
+  <div>
+    <img src="image/logout_icon.png" class="navbar_icon" id="logout_icon">
+  </div>
+
+</div>
+
+<section class="section">
+
+  <div class="editSchedule_div">
+    <button class="button" id="editSchedule_button">Edit</button>
+    <button class="button" id="saveSchedule_button">Save</button>
+  </div>
+
+  <div class = "section_center">
+
+    <div class = "schedule_table_div">
+        <table class = "schedule_table">
+          <tr class="table-header">
+            <th>Position</th>
+            <th>Monday</th>
+            <th>Tuesday</th>
+            <th>Wednesday</th>
+            <th>Thursday</th>
+            <th>Friday</th>
+            <th>Saturday</th>
+            <th>Sunday</th>
+          </tr>
+          <tr class = "employee_row">
+            <th>movie operator</th>
+            <td class = "data_cell">
+              <div class="data">
+                <div class="name">Name</div>
+                <div class="time">Time</div>
+              </div>
+              <div class="dropdown_div">
+                <select class="drop_menu_name">Name
+                  <option value="Alex">Alex</option>
+                  <option value="Sophie">Sophie</option>
+                  <option value="James">James</option>
+                  <option value="Boris">Boris</option>
+                </select>
+                <br>
+                <select class="drop_menu_time">
+                  <option value="08:00-15:00">08:00-15:00</option>
+                  <option value="15:00-22:00">15:00-22:00</option>
+                  <option value="08:00-22:00">08:00-22:00</option>
+                  <option value="08:00-14:00">08:00-14:00</option>
+                  <option value="14:00-20:00">14:00-20:00</option>
+                  <option value="08:00-20:00">08:00-20:00</option>
+                  <option value="Boris"></option>
+                </select>
+              </div>
+            </td>
+
+            <td class = "data_cell">
+              <div class="data">
+                <div class="name">Name</div>
+                <div class="time">Time</div>
+              </div>
+              <div class="dropdown_div">
+                <select class="drop_menu_name">Name
+                  <option value="Alex">Alex</option>
+                  <option value="Sophie">Sophie</option>
+                  <option value="James">James</option>
+                  <option value="Boris">Boris</option>
+                </select>
+                <br>
+                <select class="drop_menu_time">
+                  <option value="08:00-15:00">08:00-15:00</option>
+                  <option value="15:00-22:00">15:00-22:00</option>
+                  <option value="08:00-22:00">08:00-22:00</option>
+                  <option value="08:00-14:00">08:00-14:00</option>
+                  <option value="14:00-20:00">14:00-20:00</option>
+                  <option value="08:00-20:00">08:00-20:00</option>
+                  <option value="Boris"></option>
+                </select>
+              </div>
+            </td>
+
+            <td class = "data_cell">dsvcdd</td>
+            <td class = "data_cell">vsdv</td>
+            <td class = "data_cell">sdv</td>
+            <td class = "data_cell">sdv</td>
+            <td class = "data_cell">vsdvsdv</td>
+          </tr>
+          <tr class = "employee_row">
+            <th>ticket inspector/cleaner</th>
+            <td>hdfbvfhbv</td>
+            <td>cdknc</td>
+            <td>dsvcdd</td>
+            <td>vsdv</td>
+            <td>sdv</td>
+            <td>sdv</td>
+            <td>vsdvsdv</td>
+          </tr>
+          <tr class = "employee_row">
+            <th>ticket/snack salesman 1</th>
+            <td>hdfbvfhbv</td>
+            <td>cdknc</td>
+            <td>dsvcdd</td>
+            <td>vsdv</td>
+            <td>sdv</td>
+            <td>sdv</td>
+            <td>vsdvsdv</td>
+          </tr>
+          <tr class = "employee_row">
+            <th>ticket/snack salesman 2</th>
+            <td>hdfbvfhbv</td>
+            <td>cdknc</td>
+            <td>dsvcdd</td>
+            <td>vsdv</td>
+            <td>sdv</td>
+            <td>sdv</td>
+            <td>vsdvsdv</td>
+          </tr>
+        </table>
+    </div>
+  </div>
+</section>
+
+<script src="js/edit_schedule.js"></script>
+</body>
+</html>
