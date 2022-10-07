@@ -89,7 +89,6 @@ public class EmployeeServiceTest {
         List<Employee> employees = (List<Employee>) employeeService.getAllEmployees();
         Employee lastEmployee = employees.get(employees.size() - 1);
         Long employeeId = lastEmployee.getId();
-        System.out.println(employeeId);
         employeeService.deleteEmployee(employeeId);
         Optional<Employee> optional = employeeRepo.findById(employeeId);
         Assertions.assertThat(optional).isNotPresent();
