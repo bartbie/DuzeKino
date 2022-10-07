@@ -1,26 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800&display=swap');
 :root {
     --primary-color: #1c1c1c;
     --secondary-color: #262626;
+    --white: #EEEEEE;
+    --light-grey: #BDBDBD;
+    --orange: #d65a31;
 }
 
 :root button {
-    background-color: #d65a31;
-    color: rgb(239, 230, 230);
-    height: 25px;
-    width: 100px;
+    background-color: var(--orange);
+    color: var(--white);
+    padding: 10px 32px;
+    max-width: 150px;
     margin: 4px;
     border-radius: 7px;
     cursor: pointer;
+    border: none;
+    font-size: 18px;
+    font-weight: 500;
 }
 
 body{
     background-color:#060A0E;
     margin: 0;
     padding: 0;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 1rem;
+    color: var(--white);
 }
 
 #navbar_div{
-    outline: white solid 2px;
+    outline: var(--white) solid 2px;
     background-color: #161B22;
     height: 105px;
     display: flex;
@@ -49,13 +59,13 @@ body{
 }
 
 #username{
-    color: white;
+    color: var(--white);
     padding: 17px;
+    font-weight: 500;
 }
 
 .HeaderSections{
-    color: #eeeeee;
-    font-family: "Times New Roman";
+    color: var(--white);
     font-size: 24px;
 }
 
@@ -93,7 +103,7 @@ body{
 }
 
 #title{
-    color: #eeeeee;
+    color: var(--white);
     font-size: 95px;
     margin: auto;
 }
@@ -118,7 +128,7 @@ body{
 }
 
 .movieTitle{
-    color: white;
+    color: var(--white);
     font-size: 35px;
     padding-left: 10px;
     margin-top: 5px;
@@ -130,7 +140,7 @@ body{
 }
 
 .movieInfoHeader{
-    color: white;
+    color: var(--white);
     font-size: 22px;
     padding-left: 10px;
     font-weight: lighter;
@@ -138,7 +148,7 @@ body{
 }
 
 .movieInfo{
-    color: white;
+    color: var(--white);
     font-size: 17px;
     padding-left: 10px;
     font-weight: lighter;
@@ -146,7 +156,7 @@ body{
 }
 
 .movieLength{
-    color: white;
+    color: var(--white);
     font-size: 17px;
     font-weight: lighter;
 }
@@ -154,11 +164,15 @@ body{
 .button{
     background-color: rgb(130, 126, 126);
     color: rgb(239, 230, 230);
-    height: 25px;
-    width: 100px;
+    width: 200px;
     margin: 4px;
     border-radius: 7px;
     cursor: pointer;
+    border: none;
+    padding: 16px 32px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
 }
 
 .button:hover{
@@ -171,9 +185,111 @@ body{
 }
 
 #displayImage{
-    height:430px;
-    width:330px;
-    border:1px solid white;
+    height:500px;
+    max-width:330px;
+    border:1px solid var(--white);
     background-position:center;
     background-size:cover;
 }
+
+
+input, select {
+    width: 360px;
+    padding: 10px 20px;
+    margin: 5px 0 10px 0;
+    border-color: var(--secondary-color);
+    border-radius: 7px;
+    font-size: 16px;
+    border: none;
+    background-color: var(--white);
+}
+
+select {
+    width: 400px;
+    font-family: "Work Sans", sans-serif;
+    font-size: 16px;
+}
+
+label {
+    font-size: 14px;
+    color: var(--light-grey);
+}
+
+#popupPG_id {
+    width: 195px;
+}
+
+textarea {
+    margin: 5px 0 10px 0;
+    width: 360px;
+    padding: 16px 20px;
+    font-family: "Work Sans", sans-serif;
+    border: none;
+}
+
+.flex-row {
+    display: flex;
+    justify-content: space-between;
+    width: 400px;
+    font-size: 16px;
+}
+
+.flex-row input {
+    width: 150px;
+}
+
+.right-input {
+    margin-left: 15px;
+}
+
+
+/*DATE PICKER*/
+/* Removes the clear button from date inputs */
+input[type="date"]::-webkit-clear-button {
+    display: none;
+}
+
+/* Removes the spin button */
+input[type="date"]::-webkit-inner-spin-button {
+    display: none;
+}
+
+/* Always display the drop down caret */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    color: #95a5a6;
+}
+
+/* A few custom styles for date inputs */
+input[type="date"] {
+    appearance: none;
+    -webkit-appearance: none;
+    color: #95a5a6;
+    font-family: 'Work Sans', sans-serif;
+    font-size: 16px;
+    border:1px solid #ecf0f1;
+    background: var(--white);
+    padding: 10px 20px;
+    display: inline-block !important;
+    visibility: visible !important;
+}
+
+input[type="date"], focus {
+    color: #95a5a6;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+}
+
+#cancel_btn {
+    background-color: var(--light-grey);
+    color: var(--primary-color);
+}
+#cancel_btn:hover {
+    background-color: var(--white);
+}
+
+
+
+
+
+

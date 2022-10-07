@@ -33,48 +33,81 @@
 
 <!-- KEV AND MADALIN -->
 <div class="popup" id="popup">
-    <h1>Insert your data</h1>
+    <h1>New Movie</h1>
 
     <div id="popoupInputField">
         <div>
             <br>
             <div id = "displayImage">
-                <input type = "file" accept="image/*" id="input_image"><br><br>
+                <input type = "file" accept="image/*" id="input_image" style="background: none"><br><br>
             </div>
             </div>
 
         <div class="input_class">
 
-            <label for="popupTitle">Title:</label>
+            <label for="popupTitle">Title</label>
             <br>
-            <input type="text" id="popupTitle"><br><br>
+            <input type="text" id="popupTitle">
 
-            <label for="popupYear">Year:</label>
-            <br>
-            <input type="text" id="popupYear" maxlength="4" ><br><br>
+            <div class="flex-row">
+                <div>
+                    <label for="popupYear">Year</label>
+                    <br>
+                    <input type="text" id="popupYear" maxlength="4">
+                </div>
+                <div class="right-input">
+                    <label for="popupPG_id">Age Limit</label>
+                    <br>
+                    <select id="popupPG_id">
+                        <option value="??"></option>
+                    </select>
+                </div>
 
-            <label for="popupPG_id">Age Limit:</label>
-            <br>
-            <input type="text" id="popupPG_id" maxlength="2"><br><br>
+            </div>
 
-            <label for="popupLength">Length(minutes):</label>
-            <br>
-            <input type="text" id="popupLength" maxlength="4"><br><br>
+            <div class="flex-row">
+                <div>
+                    <label for="popupLength">Length (minutes)</label>
+                    <br>
+                    <input type="text" id="popupLength" maxlength="4">
+                </div>
+                <div class="right-input">
+                    <label for="popupPrice">Ticket Price</label>
+                    <br>
+                    <input id="popupPrice" type="number" min="1" step="any">
+                </div>
 
-            <label for="popupCast_id">Cast:</label>
+            </div>
+            <div class="flex-row">
+                <div>
+                    <label for="popupStartDate">Start Date</label>
+                    <input type="date" id="popupStartDate">
+                </div>
+                <div class="right-input">
+                    <label for="popupTime">Time</label>
+                    <input id="popupTime" type="time">
+                </div>
+            </div>
+            <label for="popupTheater">Theater</label>
             <br>
-            <input type="text" id="popupCast_id"><br><br>
+            <select id="popupTheater">
+                <option value="smallTheater">Small</option>
+                <option value="largeTheater">Large</option>
+            </select>
+            <br>
 
-            <label for="popupDescription">Description:</label>
+
+            <label for="popupDescription">Description</label>
             <br>
-            <textarea name="paragraph_text" id="popupDescription" cols="50" rows="10"></textarea><br><br>
+            <textarea name="paragraph_text" id="popupDescription" rows="6" ></textarea>
 
         </div>
     </div>
 
     <div id="buttons_div">
-        <button type="button" class="button" id="saveMovie_btn" onclick="setInputValue()">Save</button>
         <button type="button" class="button" id="cancel_btn">Cancel</button>
+        <button type="button" class="button" id="saveMovie_btn" onclick="setInputValue()">Save</button>
+
     </div>
 </div>
 
@@ -101,8 +134,6 @@
                 <h4 class="movieInfoHeader">Description:</h4>
                 <h4 class="movieInfo"> I've Never Seen Star Wars </h4>
 
-                <h4 class="movieInfoHeader">Cast:</h4>
-                <h4 class="movieInfo"> I've Never Seen Star Wars </h4>
 
                 <div class="cardButton_div">
                     <button class="button" id="editMovie_button">Edit</button>

@@ -11,12 +11,16 @@ function elementFromHtml(element){
     return template.content.firstElementChild;
 }
 
-let popupMovieTitle =document.getElementById("popupTitle")
-let popupYear = document.getElementById("popupYear")
-let popupPG_id = document.getElementById("popupPG_id")
-let popupLength = document.getElementById("popupLength")
-let popupCast_id = document.getElementById("popupCast_id")
-let popupDescription = document.getElementById("popupDescription")
+let popupMovieTitle =document.getElementById("popupTitle");
+let popupYear = document.getElementById("popupYear");
+let popupPG_id = document.getElementById("popupPG_id");
+let popupLength = document.getElementById("popupLength");
+//let popupCast_id = document.getElementById("popupCast_id")
+let popupDescription = document.getElementById("popupDescription");
+let popupPrice = document.getElementById("popupPrice");
+let popupTime = document.getElementById("popupTime");
+let popupStartDate = document.getElementById("popupStartDate");
+let popupTheater = document.getElementById("popupTheater");
 
 const input_image =document.querySelector("#input_image");
 letuploaded_image="";
@@ -38,35 +42,47 @@ function clear() {
     popupYear.value = ""
     popupPG_id.value = ""
     popupLength.value = ""
-    popupCast_id.value = ""
+    //popupCast_id.value = ""
     popupDescription.value = ""
+    popupPrice.value = ""
+    popupStartDate.value = ""
+    popupTheater = ""
+    popupTime = ""
 }
 
 function setInputValue(){
 
     let input = [];
-    input['title'] = popupMovieTitle.value
-    input['year'] = popupYear.value
-    input['pg'] = popupPG_id.value
-    input['duration'] = popupLength.value
-    input['cast'] = popupCast_id.value
-    input['description'] =  popupDescription.value
+    input['title'] = popupMovieTitle.value;
+    input['year'] = popupYear.value;
+    input['pg'] = popupPG_id.value;
+    input['duration'] = popupLength.value;
+    //input['cast'] = popupCast_id.value
+    input['description'] =  popupDescription.value;
+    input['price'] = popupPrice.value;
+    input['startDate'] = popupStartDate.value;
+    input['time'] = popupTime;
+    input['theater'] = popupTheater;
 
     return input
 }
 
-function setInputValueFetched(movieList){
+/*function setInputValueFetched(movieList){
 
     let input = [];
     input['title'] = popupMovieTitle.value
     input['year'] = popupYear.value
     input['pg'] = popupPG_id.value
     input['duration'] = popupLength.value
-    input['cast'] = popupCast_id.value
+    //input['cast'] = popupCast_id.value
     input['description'] =  popupDescription.value
+    input['price'] = popupPrice.value;
+    input['startDate'] = popupStartDate.value;
+    input['time'] = popupTime;
+    input['theater'] = popupTheater;
 
     return input
-}
+}*/
 
 const XML_HTTP = new XMLHttpRequest();
 
@@ -103,9 +119,6 @@ function addMovieCard(){
         '                    <h4 class="movieInfo">|</h4>\n' +
         '                    <h4 class="movieInfo" id="inputLength">'+ setInputValue().duration + ' minutes' + '</h4>\n' +
         '                </div>\n' +
-        '\n' +
-        '                <h4 class="movieInfoHeader">Cast:</h4>\n' +
-        '                <h4 class="movieInfo" id="inputCast">'+ setInputValue().cast +'</h4>\n' +
         '\n' +
         '                <h4 class="movieInfoHeader">Description:</h4>\n' +
         '                <h4 class="movieInfo" id="inputDescription">'+ setInputValue().description +'</h4>\n' +
