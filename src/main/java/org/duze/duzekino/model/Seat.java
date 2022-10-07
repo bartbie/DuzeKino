@@ -21,7 +21,7 @@ public class Seat {
     @NotNull @NonNull private int row;
     @NotNull @NonNull private int number;
 
-    @OneToOne() // not sure of this
+    @ManyToOne()
     @JoinColumn(name="theaterId")
-    @NotNull @NonNull private Theater theaterId;
+    @NotNull @NonNull private Theater theater;
 }

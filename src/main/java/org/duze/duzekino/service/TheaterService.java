@@ -2,8 +2,13 @@ package org.duze.duzekino.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.duze.duzekino.model.Booking;
+import org.duze.duzekino.model.Theater;
 import org.duze.duzekino.repository.TheaterRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -11,5 +16,9 @@ import org.springframework.stereotype.Service;
 public  final class TheaterService {
     final TheaterRepository theaterRepository;
 
-    //read movies and showings
+    public List<Theater> getTheaters() {return theaterRepository.findAll();}
+
+    public Optional<Theater> findTheaterById(long id) {
+        return theaterRepository.findById(id);
+    }
 }
