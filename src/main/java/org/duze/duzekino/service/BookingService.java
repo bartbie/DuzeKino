@@ -3,19 +3,28 @@ package org.duze.duzekino.service;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.duze.duzekino.exception.BookingException;
 import org.duze.duzekino.model.Booking;
 import org.duze.duzekino.model.Movie;
+import org.duze.duzekino.model.Showing;
 import org.duze.duzekino.repository.BookingRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
+
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public final class BookingService {
     final BookingRepository bookingRepo;
+
+    public BookingException newException(String msg){
+        log.error(msg);
+        return new BookingException(msg);
+    }
 
     public List<Booking> getBookings() {return bookingRepo.findAll();}
 
@@ -30,6 +39,7 @@ public final class BookingService {
         oldB.setPhoneNumber(newB.getPhoneNumber());
         oldB.setEmail(newB.getEmail());
         oldB.setShowing(newB.getShowing());
+        oldB.setReservedSeat(newB.getReservedSeat());
         bookingRepo.save(oldB);
         log.info("Updated booking from %s to %s".formatted(oldInfo, oldB));
         return oldB;
@@ -38,10 +48,25 @@ public final class BookingService {
         log.info("removing %s".formatted(booking));
         bookingRepo.delete(booking);
     }
-    public Booking addBooking(@NonNull Booking booking) {
+    public Booking addBooking(@NonNull Booking booking) throws BookingException{
+        if(inDatabase(booking)){
+            throw newException("Booking already in database");
+        }
         log.info("Adding %s to Database".formatted(booking));
         bookingRepo.save(booking);
         return booking;
+    }
+    public Booking updateBookingById(long id, @NonNull Booking newBooking) throws BookingException {
+        var oldBooking = findBookingById(id);
+        if (oldBooking.isEmpty()){
+            throw newException("No such booking with id %d".formatted(id));
+        }
+        return updateBooking(oldBooking.get(), newBooking);
+    }
+    public boolean inDatabase(@NonNull Booking booking) {
+        Predicate<Booking> phoneNumberEquals = s -> s.getPhoneNumber().equals(booking.getPhoneNumber());
+        Predicate<Booking> showingEquals = s -> s.getShowing().equals(booking.getShowing());
+        return getBookings().stream().anyMatch(phoneNumberEquals.and(showingEquals));
     }
 }
 

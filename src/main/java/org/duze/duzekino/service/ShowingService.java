@@ -8,6 +8,7 @@ import org.duze.duzekino.model.Showing;
 import org.duze.duzekino.repository.ShowingRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -47,7 +48,7 @@ public final class ShowingService {
             throw newException("Showing already in Database");
         }
         log.info("Adding %s to Database".formatted(showing));
-        showingRepo.save(showing);
+        createShowingFor90Days(showing);
         return showing;
     }
 
@@ -90,4 +91,15 @@ public final class ShowingService {
         }
         return updateShowing(oldShowing.get(), newShowing);
     }
+
+    // internal use only
+    private void createShowingFor90Days(Showing showing){
+        for(int i = 0; i <= 90; i++){
+            LocalDateTime startDate = showing.getTime();
+            Showing newShowing = new Showing();
+            newShowing.setTime(startDate.plusDays(1));
+            showingRepo.save(newShowing);
+        }
+    }
+
 }

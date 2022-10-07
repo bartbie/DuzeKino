@@ -18,12 +18,11 @@ public class ReservedSeat {
     @Setter(AccessLevel.NONE)
     @NotNull private Long reservedId;
 
-    @ManyToOne()
-    @JoinColumn(name="bookingId")
-    @NotNull @NonNull private Booking booking;
-
     @OneToOne()
     @JoinColumn(name="seatId")
-    @NotNull @NonNull private Seat seatId;
+    @NotNull @NonNull private Seat seat;
 
+    public ReservedSeat(@NonNull Seat seat) {
+        this.seat = seat;
+    }
 }

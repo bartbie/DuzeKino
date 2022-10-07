@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Setter
@@ -29,5 +30,17 @@ public final class Booking {
     @NotNull @NonNull
     private Showing showing;
 
+    @OneToMany()
+    @JoinColumn(name="reservedId")
+    @NotNull @NonNull
+    private List<ReservedSeat> reservedSeat;
 
+    public Booking(@NonNull String firstName, @NonNull String lastName, @NonNull String phoneNumber, @NonNull String email, @NonNull Showing showing, @NonNull List<ReservedSeat> reservedSeat) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.showing = showing;
+        this.reservedSeat = reservedSeat;
+    }
 }

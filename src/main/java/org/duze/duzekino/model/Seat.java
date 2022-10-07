@@ -24,4 +24,10 @@ public class Seat {
     @ManyToOne()
     @JoinColumn(name="theaterId")
     @NotNull @NonNull private Theater theater;
+
+    public Seat(@NonNull int row, @NonNull int number, @NonNull Theater theater) {
+        this.row = row;
+        this.number = number;
+        this.theater = theater;
+    }
 }
