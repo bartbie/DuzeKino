@@ -1,5 +1,6 @@
 import Header from "../components/header";
 import Popup from "../components/popup";
+import { fetchMovies } from "../lib/api/movie";
 
 function MovieButton({text, fn}: {text: string, fn: () => any}) {
     return (
@@ -25,19 +26,27 @@ function MovieCard({title, year, pg, duration, desc, theater}: {title: string, y
                 <span>{theater}</span>
             </div>
             <div>
-                <MovieButton text="edit" fn={}/>
-                <MovieButton text="delete" fn={}/>
+                <MovieButton text="edit" fn={() => {}}/>
+                <MovieButton text="delete" fn={() => {}}/>
             </div>
         </div>
-    )
+    );
 }
 
 function CardsSection() {
-    return (
+    const {movies, isLoading, isError} = fetchMovies();
+    if (isLoading) return (<p>Loading...</p>)
+    if (isError) return (<p>Failed to load</p>)
+    return ( 
         <div>
-            <MovieCard title="test" year={2000} pg="FIFTEEN" duration={120} desc="some description" theater="test theater"/>
+            {JSON.stringify(movies)}
         </div>
     )
+    // return (
+    //     <div>
+    //         <MovieCard title="test" year={2000} pg="FIFTEEN" duration={120} desc="some description" theater="test theater"/>
+    //     </div>
+    // )
 }
 
 export default function MoviesPage() {
