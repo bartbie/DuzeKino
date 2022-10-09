@@ -10,6 +10,7 @@ import org.duze.duzekino.service.BookingService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 @CrossOrigin(origins = "http://localhost:63342")
@@ -25,6 +26,12 @@ public class BookingController {
     public List<Booking> getBookings() {
         log.info("Fetching Bookings");
         return bookingService.getBookings();
+    }
+
+    @GetMapping("/name")
+    public Optional<Booking> getBookingsByName(@RequestParam String firstName, @RequestParam String lastName) {
+        log.info("Fetching bookings by name");
+        return bookingService.findBookingByName(firstName, lastName);
     }
 
     @PostMapping

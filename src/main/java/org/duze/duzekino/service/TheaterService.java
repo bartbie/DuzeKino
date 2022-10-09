@@ -1,7 +1,9 @@
 package org.duze.duzekino.service;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.duze.duzekino.exception.BookingException;
 import org.duze.duzekino.model.Booking;
 import org.duze.duzekino.model.Theater;
 import org.duze.duzekino.repository.TheaterRepository;
@@ -20,5 +22,14 @@ public  final class TheaterService {
 
     public Optional<Theater> findTheaterById(long id) {
         return theaterRepository.findById(id);
+    }
+
+    public Optional<Theater> findTheaterByName(String name) {
+        return theaterRepository.findTheaterByName(name);
+    }
+
+    public Theater addTheater(@NonNull Theater theater) throws IllegalStateException {
+        theaterRepository.save(theater);
+        return theater;
     }
 }

@@ -3,10 +3,9 @@ package org.duze.duzekino.model;
 import com.sun.istack.NotNull;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Setter
@@ -26,4 +25,11 @@ public final class Theater {
     public Theater(@NonNull String name) {
         this.name = name;
     }
+
+/*    @OneToMany (mappedBy = "theater")
+    private Set<Showing> showings = new HashSet<>();
+
+    @OneToMany (mappedBy = "theater")
+    private Set<Seat> seats = new HashSet<>();*/
+
 }

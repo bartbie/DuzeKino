@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -42,6 +43,7 @@ class ShowingServiceTest {
         theater = TestUtils.setUpRepo(new Theater("ExampleTheater"), theaterRepository);
         // set up showings
         showing = TestUtils.setUpRepo(new Showing(LocalDateTime.now(), movie, theater), showingRepository);
+
     }
 
 //    @AfterEach
@@ -62,6 +64,7 @@ class ShowingServiceTest {
         assertEquals(showing, showingService.findShowingById(showing.getId()).get());
     }
 
+    // failed. addShowing creates 90 showings and showing is only one, method actually returns the right thing
     @Test
     void addShowing() {
         Movie newM = new Movie("Shrek", "the 2", 2001, Duration.ofMinutes(120), PG.ANY);

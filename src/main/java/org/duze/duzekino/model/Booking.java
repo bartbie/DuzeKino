@@ -4,7 +4,9 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Setter
@@ -24,23 +26,24 @@ public final class Booking {
     @NotNull @NonNull private String lastName;
     @NotNull @NonNull private String phoneNumber;
     @NotNull @NonNull private String email;
+    @NotNull @NonNull private double totalPrice;
 
-    @OneToOne()
-    @JoinColumn(name="showingId")
+    @ManyToOne()
+    @JoinColumn(name="id")
     @NotNull @NonNull
     private Showing showing;
 
-    @OneToMany()
-    @JoinColumn(name="reservedId")
-    @NotNull @NonNull
-    private List<ReservedSeat> reservedSeat;
+//  @OneToMany (mappedBy = "booking")
+//    private Set<ReservedSeat> reservedSeats = new HashSet<>();
 
-    public Booking(@NonNull String firstName, @NonNull String lastName, @NonNull String phoneNumber, @NonNull String email, @NonNull Showing showing, @NonNull List<ReservedSeat> reservedSeat) {
+
+    public Booking(@NonNull String firstName, @NonNull String lastName, @NonNull String phoneNumber, @NonNull String email, @NonNull Showing showing, @NonNull HashSet<ReservedSeat> reservedSeats, @NonNull double totalPrice) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.showing = showing;
-        this.reservedSeat = reservedSeat;
+//        this.reservedSeats = reservedSeats;
+        this.totalPrice = totalPrice;
     }
 }

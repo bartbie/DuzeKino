@@ -4,13 +4,15 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.duze.duzekino.exception.ShowingException;
+import org.duze.duzekino.model.Booking;
+import org.duze.duzekino.model.ReservedSeat;
+import org.duze.duzekino.model.Seat;
 import org.duze.duzekino.model.Showing;
 import org.duze.duzekino.repository.ShowingRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Predicate;
 
 @Service
@@ -19,6 +21,7 @@ import java.util.function.Predicate;
 public final class ShowingService {
     final ShowingRepository showingRepo;
     final MovieService movieService;
+    final SeatService seatService;
 
     public ShowingException newException(String msg) {
         log.error(msg);
@@ -92,14 +95,16 @@ public final class ShowingService {
         return updateShowing(oldShowing.get(), newShowing);
     }
 
-    // internal use only
-    private void createShowingFor90Days(Showing showing){
+
+    public void createShowingFor90Days(Showing showing){
         for(int i = 0; i <= 90; i++){
             LocalDateTime startDate = showing.getTime();
             Showing newShowing = new Showing();
-            newShowing.setTime(startDate.plusDays(1));
+            newShowing.setTime(startDate.plusDays(i));
             showingRepo.save(newShowing);
         }
     }
+
+
 
 }
