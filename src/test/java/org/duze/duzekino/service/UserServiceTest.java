@@ -4,81 +4,83 @@ import org.assertj.core.api.Assertions;
 import org.duze.duzekino.model.Permission;
 import org.duze.duzekino.model.User;
 import org.duze.duzekino.repository.UserRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 
 import java.util.List;
 import java.util.Optional;
 
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-//@SpringBootTest
-@DataJpaTest
-@Rollback(false)
+@SpringBootTest
 public class UserServiceTest {
 
-//    @Autowired
-//    UserRepository userService;
-//
-//    @Test
-//    public void testAddUser() {
-//        User user = new User();
-//        user.setUsername("username");
-//        user.setPassword("password");
-//        user.setPermission(Permission.BASIC);
-//        user.setEmail("email");
-//
-//        User savedUser = userService.save(user);
-//
-//        org.assertj.core.api.Assertions.assertThat(savedUser).isNotNull();
-//        org.assertj.core.api.Assertions.assertThat(savedUser.getId()).isGreaterThan(0);
-//    }
-//
-//    @Test
-//    public void testListAll() {
-//        Iterable<User> users = userService.findAll();
-//        org.assertj.core.api.Assertions.assertThat(users).hasSizeGreaterThan(0);
-//        for (User user : users
-//        ) {
-//            System.out.println(users);
-//        }
-//    }
-//
-//    @Test
-//    public void testUpdate() {
-//        List<User> users = (List<User>) userService.findAll();
-//        User lastUser = users.get(users.size()-1);
-//        Long userId = lastUser.getId();
-//        Optional<User> optionalUser = userService.findById(userId);
-//        User user = optionalUser.get();
-//        String newEmail = "newEmailSet";
-//        user.setEmail(newEmail);
-//        userService.save(user);
-//
-//        User updatedUser = userService.findById(userId).get();
-//        org.assertj.core.api.Assertions.assertThat(updatedUser.getEmail()).isEqualTo(newEmail);
-//    }
-//
-//    @Test
-//    public void testGet() {
-//        List<User> users = (List<User>) userService.findAll();
-//        User lastUser = users.get(users.size()-1);
-//        Long userId = lastUser.getId();
-//        Optional<User> optionalUser = userService.findById(userId);
-//        org.assertj.core.api.Assertions.assertThat(optionalUser).isPresent();
-//        System.out.println(optionalUser.get());
-//    }
-//
-//    @Test
-//    public void testDelete() {
-//        List<User> users = (List<User>) userService.findAll();
-//        User lastUser = users.get(users.size()-1);
-//        Long userId = lastUser.getId();
-//        Optional<User> optionalUser = userService.findById(userId);
-//        userService.deleteById(userId);
-//        Assertions.assertThat(optionalUser).isNotPresent();
-//    }
+    @Autowired
+    UserService userService;
+    @Autowired
+    UserRepository userRepo;
+
+    @BeforeEach
+    void setUp() {
+        User user = new User("hhh", "000", "www", Permission.BASIC);
+        userRepo.deleteAll();
+        userRepo.save(user);
+    }
+
+    @Test
+    public void testAddUser() throws UserNotFoundException {
+        User user = new User();
+        user.setUsername("username");
+        user.setPassword("password");
+        user.setPermission(Permission.BASIC);
+        user.setEmail("email");
+
+        userService.saveUser(user);
+        User savedUser = userService.getUserByUsername("username");
+        Assertions.assertThat(savedUser).isNotNull();
+    }
+
+    @Test
+    public void testListAll() {
+        Iterable<User> users = userService.getAllUsers();
+        Assertions.assertThat(users).hasSizeGreaterThan(0);
+        for (User user : users
+        ) {
+            System.out.println(users);
+        }
+    }
+
+    @Test
+    public void testUpdate() throws UserNotFoundException {
+        List<User> users = (List<User>) userService.getAllUsers();
+        User lastUser = users.get(users.size() - 1);
+        Long userId = lastUser.getId();
+        User user = userService.getUser(userId);
+        String newEmail = "newEmailSet";
+        user.setEmail(newEmail);
+        userService.saveUser(user);
+
+        User updatedUser = userService.getUser(userId);
+        Assertions.assertThat(updatedUser.getEmail()).isEqualTo(newEmail);
+    }
+
+    @Test
+    public void testGet() throws UserNotFoundException {
+        List<User> users = userService.getAllUsers();
+        User lastUser = users.get(users.size() - 1);
+        Long userId = lastUser.getId();
+        User user = userService.getUser(userId);
+        Assertions.assertThat(user).isNotNull();
+        System.out.println(user);
+    }
+
+    @Test
+    public void testDelete() throws UserNotFoundException {
+        List<User> users = (List<User>) userService.getAllUsers();
+        User lastUser = users.get(users.size() - 1);
+        Long userId = lastUser.getId();
+        userService.deleteUser(userId);
+        Optional<User> optional = userRepo.findById(userId);
+        Assertions.assertThat(optional).isNotPresent();
+    }
 }

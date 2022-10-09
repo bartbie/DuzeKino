@@ -1,8 +1,12 @@
-function out(any) {console.log(any)}
+function out(any) {
+    console.log(any)
+}
+
 out("I am inside main_page.js")
 
-//This method takes a string as parameter and converts it into html (i stole it from a tutorial. You can see the  function in action at line 15. work in progress)
-function elementFromHtml(element){
+//This method takes a string as parameter and converts it into html (i stole it from a tutorial.
+// You can see the  function in action at line 15. work in progress)
+function elementFromHtml(element) {
     const template = document.createElement("template")
 
     //This method removes all the empty spaces in the string
@@ -11,15 +15,15 @@ function elementFromHtml(element){
     return template.content.firstElementChild;
 }
 
-let popupMovieTitle =document.getElementById("popupTitle")
+let popupMovieTitle = document.getElementById("popupTitle")
 let popupYear = document.getElementById("popupYear")
 let popupPG_id = document.getElementById("popupPG_id")
 let popupLength = document.getElementById("popupLength")
 let popupCast_id = document.getElementById("popupCast_id")
 let popupDescription = document.getElementById("popupDescription")
 
-const input_image =document.querySelector("#input_image");
-letuploaded_image="";
+const input_image = document.querySelector("#input_image");
+letuploaded_image = "";
 
 function toClosest(integer) {
     if (integer >= 17) {
@@ -42,7 +46,7 @@ function clear() {
     popupDescription.value = ""
 }
 
-function setInputValue(){
+function setInputValue() {
 
     let input = [];
     input['title'] = popupMovieTitle.value
@@ -50,12 +54,12 @@ function setInputValue(){
     input['pg'] = popupPG_id.value
     input['duration'] = popupLength.value
     input['cast'] = popupCast_id.value
-    input['description'] =  popupDescription.value
+    input['description'] = popupDescription.value
 
     return input
 }
 
-function setInputValueFetched(movieList){
+function setInputValueFetched(movieList) {
 
     let input = [];
     input['title'] = popupMovieTitle.value
@@ -63,7 +67,7 @@ function setInputValueFetched(movieList){
     input['pg'] = popupPG_id.value
     input['duration'] = popupLength.value
     input['cast'] = popupCast_id.value
-    input['description'] =  popupDescription.value
+    input['description'] = popupDescription.value
 
     return input
 }
@@ -71,7 +75,7 @@ function setInputValueFetched(movieList){
 const XML_HTTP = new XMLHttpRequest();
 
 function fetchStuff(endpoint, method, body) {
-    XML_HTTP.open(method,`http://localhost:8080/${endpoint}`, false); // false for synchronous request
+    XML_HTTP.open(method, `http://localhost:8080/${endpoint}`, false); // false for synchronous request
     XML_HTTP.send(body);
     return JSON.parse(XML_HTTP.responseText);
 }
@@ -89,26 +93,26 @@ const movies = fetchAllMovies()
 
 //We definitely need paramater to pass in the movieCard variable. maybe something like: document.getElementById("movieYear").setAttribute(variableName)
 //We definitely need paramater to pass in the movieCard variable. maybe something like: document.getElementById("movieYear").setAttribute(variableName)
-function addMovieCard(){
+function addMovieCard() {
     const movieCard = elementFromHtml('<div class="movieCard">\n' +
         '            \n' +
-        '            <img src=" '+setInputValue().image +'" class="movie_image">\n' +
+        '            <img src=" ' + setInputValue().image + '" class="movie_image">\n' +
         '            <div class="card_info">\n' +
         '                <h1 class="movieTitle" id="movie">' + setInputValue().title + '</h1>\n' +
         '\n' +
         '                <div class="importantMovieInfo">\n' +
-        '                    <h4 class="movieInfo" id="inputYear">'+ setInputValue().year +'</h4>\n' +
+        '                    <h4 class="movieInfo" id="inputYear">' + setInputValue().year + '</h4>\n' +
         '                    <h4 class="movieInfo">|</h4>\n' +
-        '                    <h4 class="movieInfo" id="inputPG">'+ "PG: "+ setInputValue().pg +' </h4>\n' +
+        '                    <h4 class="movieInfo" id="inputPG">' + "PG: " + setInputValue().pg + ' </h4>\n' +
         '                    <h4 class="movieInfo">|</h4>\n' +
-        '                    <h4 class="movieInfo" id="inputLength">'+ setInputValue().duration + ' minutes' + '</h4>\n' +
+        '                    <h4 class="movieInfo" id="inputLength">' + setInputValue().duration + ' minutes' + '</h4>\n' +
         '                </div>\n' +
         '\n' +
         '                <h4 class="movieInfoHeader">Cast:</h4>\n' +
-        '                <h4 class="movieInfo" id="inputCast">'+ setInputValue().cast +'</h4>\n' +
+        '                <h4 class="movieInfo" id="inputCast">' + setInputValue().cast + '</h4>\n' +
         '\n' +
         '                <h4 class="movieInfoHeader">Description:</h4>\n' +
-        '                <h4 class="movieInfo" id="inputDescription">'+ setInputValue().description +'</h4>\n' +
+        '                <h4 class="movieInfo" id="inputDescription">' + setInputValue().description + '</h4>\n' +
         '\n' +
         '                <div class="cardButton_div">\n' +
         '                    <button class="button" id="edit_button">Edit</button>\n' +
@@ -123,7 +127,7 @@ function addMovieCard(){
     elementToAppendTO.appendChild(movieCard)
 }
 
-function saveMovie(event){
+function saveMovie(event) {
     event.preventDefault()
 
     out("before fetch")
@@ -139,29 +143,32 @@ function saveMovie(event){
         headers: {
             "Content-type": "application/json"
         }
-    }).then(function (response){
+    }).then(function (response) {
         return response.json()
-    }).then(function (data){out(data)})
+    }).then(function (data) {
+        out(data)
+    })
 
 }
 
-function setCoverImage(){
-    const reader=new FileReader();
-    reader.addEventListener("load",()=>{
+function setCoverImage() {
+    const reader = new FileReader();
+    reader.addEventListener("load", () => {
         let uploaded_image = reader.result;
-        document.querySelector("#displayImage").style.backgroundImage=`url(${uploaded_image})`;
+        document.querySelector("#displayImage").style.backgroundImage = `url(${uploaded_image})`;
     });
-     return reader.readAsDataURL(this.files[0]);
+    return reader.readAsDataURL(this.files[0]);
 }
 
 //KEV AND MADALIN
 
 let popup = document.getElementById('popup');
 
-function openPopup(){
+function openPopup() {
     popup.classList.add('open-popup')
 }
-function closePopup(){
+
+function closePopup() {
     popup.classList.remove('open-popup')
 }
 
