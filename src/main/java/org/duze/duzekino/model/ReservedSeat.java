@@ -28,7 +28,8 @@ public class ReservedSeat {
     @JoinColumn (name = "bookingId")
     private Booking booking;
 
-    public ReservedSeat(@NonNull Seat seat) {
+    public ReservedSeat(@NonNull Seat seat, @NonNull Booking booking) {
         this.seat = seat;
+        this.booking = booking;
     }
 }

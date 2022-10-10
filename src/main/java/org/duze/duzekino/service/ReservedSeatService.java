@@ -10,8 +10,10 @@ import org.duze.duzekino.model.ReservedSeat;
 import org.duze.duzekino.model.Showing;
 import org.duze.duzekino.repository.BookingRepository;
 import org.duze.duzekino.repository.ReservedSeatRepository;
+import org.duze.duzekino.repository.SeatRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.swing.text.html.Option;
 import java.util.HashSet;
@@ -26,6 +28,8 @@ public final class ReservedSeatService {
 
     final ReservedSeatRepository reservedSeatRepository;
     final BookingService bookingService;
+    final SeatRepository seatRepository;
+    final BookingRepository bookingRepository;
 
 
     public ReservedSeatException newException(String message){
@@ -97,6 +101,7 @@ public final class ReservedSeatService {
         reservedSeatRepository.deleteByReservedId(id);
     }
 
+    // !!doesn´t update
     public ReservedSeat updateReservedSeat(@NonNull ReservedSeat oldSeat, @NonNull ReservedSeat newSeat){
         var oldInfo = oldSeat.toString();
         oldSeat.setSeat(newSeat.getSeat());
@@ -106,6 +111,7 @@ public final class ReservedSeatService {
         return oldSeat;
     }
 
+    // !!doesn´t update
     public ReservedSeat updateReservedSeatById(long id, @NonNull ReservedSeat newReservedSeat){
         var oldReservedSeat = getReservedSeatById(id);
         if(oldReservedSeat.isEmpty()){

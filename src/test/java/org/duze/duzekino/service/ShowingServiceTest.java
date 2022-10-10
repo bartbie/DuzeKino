@@ -32,6 +32,7 @@ class ShowingServiceTest {
     Showing showing;
 
     @Autowired TheaterRepository theaterRepository;
+    @Autowired TheaterService theaterService;
     Theater theater;
 
     @BeforeEach
@@ -49,22 +50,25 @@ class ShowingServiceTest {
 //    @AfterEach
 //    void tearDown() {}
 
+    // passed
     @Test
     void inDatabase() {
         assertTrue(showingService.inDatabase(showing));
     }
 
+    // passed
     @Test
     void getShowings() {
         assertEquals(List.of(showing), showingService.getShowings());
     }
 
+    // passed
     @Test
     void findShowingById() {
         assertEquals(showing, showingService.findShowingById(showing.getId()).get());
     }
 
-    // failed. addShowing creates 90 showings and showing is only one, method actually returns the right thing
+    // FAILED. TEST NEED TO BE REWRITTEN addShowing creates 90 showings and showing is only one, method actually returns the right thing
     @Test
     void addShowing() {
         Movie newM = new Movie("Shrek", "the 2", 2001, Duration.ofMinutes(120), PG.ANY);
@@ -73,18 +77,21 @@ class ShowingServiceTest {
         assertEquals(List.of(showing, newS), showingService.getShowings());
     }
 
+    // passed
     @Test
     void deleteShowing() {
         showingService.deleteShowing(showing);
         assertFalse(showingService.inDatabase(showing));
     }
 
+    // passed
     @Test
     void deleteShowingByMovieId() {
         showingService.deleteShowingByMovieId(movie.getMovieId());
         assertFalse(showingService.inDatabase(showing));
     }
 
+    // ERROR: object references an unsaved transient instance - save the transient instance before flushing
     @Test
     void updateShowing() {
         Movie updatedMovie = new Movie("Updated", "sced", 2, Duration.ofMinutes(6), PG.FIFTEEN);
@@ -93,6 +100,7 @@ class ShowingServiceTest {
         assertEquals(showing.getMovie().getTitle(), updated.getMovie().getTitle());
     }
 
+    // ERROR: object references an unsaved transient instance - save the transient instance before flushing
     @Test
     void updateShowingById() {
         Movie updatedMovie = new Movie("Updated", "sced", 2, Duration.ofMinutes(6), PG.FIFTEEN);

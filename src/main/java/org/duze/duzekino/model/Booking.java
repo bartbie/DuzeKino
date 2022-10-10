@@ -1,6 +1,7 @@
 package org.duze.duzekino.model;
 
 import lombok.*;
+import org.hibernate.engine.internal.Cascade;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -33,11 +34,11 @@ public final class Booking {
     @NotNull @NonNull
     private Showing showing;
 
-//  @OneToMany (mappedBy = "booking")
-//    private Set<ReservedSeat> reservedSeats = new HashSet<>();
+/*    @OneToMany (mappedBy = "booking", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<ReservedSeat> reservedSeats = new HashSet<>();*/
 
 
-    public Booking(@NonNull String firstName, @NonNull String lastName, @NonNull String phoneNumber, @NonNull String email, @NonNull Showing showing, @NonNull HashSet<ReservedSeat> reservedSeats, @NonNull double totalPrice) {
+    public Booking(@NonNull String firstName, @NonNull String lastName, @NonNull String phoneNumber, @NonNull String email, @NonNull Showing showing, @NonNull double totalPrice) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;

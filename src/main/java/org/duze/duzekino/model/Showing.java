@@ -35,8 +35,8 @@ public final class Showing {
     @NotNull @NonNull
     private Theater theater;
 
-    @OneToMany(mappedBy = "showing")
-    private Set<Booking> bookings = new HashSet<>();
+/*    @OneToMany(mappedBy = "showing", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Booking> bookings = new HashSet<>();*/
 
 
     public Showing(@NonNull LocalDateTime time, @NonNull Movie movie, @NonNull Theater theater) {

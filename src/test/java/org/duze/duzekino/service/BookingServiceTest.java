@@ -29,12 +29,15 @@ class BookingServiceTest {
     Movie movie;
 
     @Autowired TheaterRepository theaterRepository;
+    @Autowired TheaterService theaterService;
     Theater theater;
 
     @Autowired SeatRepository seatRepository;
+    @Autowired SeatService seatService;
     Seat seat;
 
     @Autowired ReservedSeatRepository reservedSeatRepository;
+    @Autowired ReservedSeatService reservedSeatService;
     ReservedSeat reservedSeat;
 
 
@@ -49,14 +52,8 @@ class BookingServiceTest {
         theater = TestUtils.setUpRepo(new Theater("ExampleTheater"), theaterRepository);
         // set up showing
         showing = TestUtils.setUpRepo(new Showing(LocalDateTime.now(), movie, theater), showingRepository);
-        // set up seat
-        seat = TestUtils.setUpRepo(new Seat(2, 2, theater), seatRepository);
-        // set up reserved seat
-        reservedSeat = TestUtils.setUpRepo(new ReservedSeat(seat), reservedSeatRepository);
-        HashSet<ReservedSeat> reservedSeats = new HashSet<>();
-        reservedSeats.add(reservedSeat);
         // set up booking
-        booking = TestUtils.setUpRepo(new Booking("firstName", "lastName", "58484", "email", showing, reservedSeats, 110.00), bookingRepository);
+        booking = TestUtils.setUpRepo(new Booking("firstName", "lastName", "58484", "email", showing,110.00), bookingRepository);
 
     }
 
@@ -79,30 +76,28 @@ class BookingServiceTest {
         assertEquals(booking, bookingService.findBookingById(booking.getBookingId()).get());
     }
 
+    // ERROR:  object references an unsaved transient instance - save the transient instance before flushing
     @Test
     void addBooking() {
         Movie newMovie = new Movie("shrek", "desc", 2010, Duration.ofMinutes(6), PG.FIFTEEN);
         Theater newTheater = new Theater("name");
         Showing newShowing = new Showing(LocalDateTime.now(), newMovie, newTheater);
-        Seat newSeat = new Seat(1, 1, theater);
-        ReservedSeat newReservedSeat = new ReservedSeat(seat);
-        HashSet<ReservedSeat> reservedSeats = new HashSet<>();
-        reservedSeats.add(newReservedSeat);
-        Booking newBooking = new Booking("firstname", "lastName", "576884", "j@hf.dk", newShowing, reservedSeats, 110.00);
+        Booking newBooking = new Booking("firstname", "lastName", "576884", "j@hf.dk", newShowing, 110.00);
         bookingService.addBooking(newBooking);
         assertEquals(List.of(booking, newBooking), bookingService.getBookings());
     }
 
-/*    @Test
+    // ERROR: detached entity passed to persist
+    @Test
     void updateBooking() {
         Movie updatedMovie = new Movie("shrek", "desc", 2010, Duration.ofMinutes(6), PG.FIFTEEN);
         Theater updatedTheater = new Theater("name");
         Showing updatedShowing = new Showing(LocalDateTime.now(), updatedMovie, updatedTheater);
-        Booking updatedBooking = new Booking("firstname", "lastName", "576884", "j@hf.dk", updatedShowing);
+        Booking updatedBooking = new Booking("firstname", "lastName", "576884", "j@hf.dk", updatedShowing, 110.00);
 
         bookingService.updateBooking(booking,updatedBooking);
         assertEquals(booking.getFirstName(), updatedBooking.getFirstName());
-    }*/
+    }
 
 
     // passed
@@ -112,17 +107,13 @@ class BookingServiceTest {
         assertFalse(bookingService.inDatabase(booking));
     }
 
-
+    // ERROR: detached entity passed to persist
     @Test
     void updateBookingById() {
         Movie m = new Movie("shrek", "desc", 2010, Duration.ofMinutes(6), PG.FIFTEEN);
         Theater t = new Theater("name");
         Showing s = new Showing(LocalDateTime.now(), m, t);
-        Seat newSeat = new Seat(1, 1, theater);
-        ReservedSeat newReservedSeat = new ReservedSeat(seat);
-        HashSet<ReservedSeat> reservedSeats = new HashSet<>();
-        reservedSeats.add(newReservedSeat);
-        Booking updatedBooking = new Booking("firstname", "lastName", "576884", "j@hf.dk", s, reservedSeats, 110.00);
+        Booking updatedBooking = new Booking("firstname", "lastName", "576884", "j@hf.dk", s, 110.00);
         bookingService.updateBookingById(booking.getBookingId(),updatedBooking);
         assertEquals(booking.getFirstName(), updatedBooking.getFirstName());
     }
