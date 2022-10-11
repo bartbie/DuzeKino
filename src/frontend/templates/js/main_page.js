@@ -124,37 +124,50 @@ function addMovieCard(){
 }
 
 function addMovieCardFromDB(movie){
-    const movieCard = elementFromHtml('<div class="movieCard">\n' +
-        '            \n' +
-        '            <img src=" '+setInputValue().image +'" class="movie_image">\n' +
-        '            <div class="card_info">\n' +
-        '                <h1 class="movieTitle" id="movie">' + movie.title + '</h1>\n' +
-        '\n' +
-        '                <div class="importantMovieInfo">\n' +
-        '                    <h4 class="movieInfo" id="inputYear">'+ movie.year +'</h4>\n' +
-        '                    <h4 class="movieInfo">|</h4>\n' +
-        '                    <h4 class="movieInfo" id="inputPG">'+ "PG: "+ setInputValue().pg +' </h4>\n' +
-        '                    <h4 class="movieInfo">|</h4>\n' +
-        '                    <h4 class="movieInfo" id="inputLength">'+ setInputValue().duration + ' minutes' + '</h4>\n' +
-        '                </div>\n' +
-        '\n' +
-        '                <h4 class="movieInfoHeader">Cast:</h4>\n' +
-        '                <h4 class="movieInfo" id="inputCast">'+ setInputValue().cast +'</h4>\n' +
-        '\n' +
-        '                <h4 class="movieInfoHeader">Description:</h4>\n' +
-        '                <h4 class="movieInfo" id="inputDescription">'+ setInputValue().description +'</h4>\n' +
-        '\n' +
-        '                <div class="cardButton_div">\n' +
-        '                    <button class="button" id="edit_button">Edit</button>\n' +
-        '                    <button class="button" id="delete_button">Delete</button>\n' +
-        '                </div>\n' +
-        '            </div>\n' +
-        '        </div>')
+    let movie_id = movie.movieId
+    console.log(movie_id)
+    const movieCard = elementFromHtml(`<div class="movieCard">
+            
+            <img src=" ${setInputValue().image}" class="movie_image">
+            <div class="card_info">
+                <h1 class="movieTitle" id="movie">${movie.title}</h1>
 
+                <div class="importantMovieInfo">
+                    <h4 class="movieInfo" id="inputYear">${movie.year}</h4>
+                    <h4 class="movieInfo">|</h4>
+                    <h4 class="movieInfo" id="inputPG">PG: ${movie.pg} </h4>
+                    <h4 class="movieInfo">|</h4>
+                    <h4 class="movieInfo" id="inputLength">${movie.duration} minutes</h4>
+                </div>
+
+                <h4 class="movieInfoHeader">Cast:</h4>
+                <h4 class="movieInfo" id="inputCast">${movie.cast}</h4>
+
+                <h4 class="movieInfoHeader">Description:</h4>
+                <h4 class="movieInfo" id="inputDescription">${movie.description}</h4>
+
+                <div class="cardButton_div">
+                    <button class="button" id="edit_button">Edit</button>
+                    <button class="button" id="delete_button${movie_id}" onclick="deleteMovie(${movie_id})">Delete</button>\n                </div>
+            </div>
+        </div>`)
+    //const button_delete = document.getElementById(`delete_button${movie_id}`)
     //Line 42 stores in a varibale the <div> called 'section_center' (line 32 in the html file)
     const elementToAppendTO = document.querySelector('.section_center');
     //Now i can append the movie card inside the section_center div so that can follow its styling
     elementToAppendTO.appendChild(movieCard)
+}
+
+function deleteMovie (id) {
+    out("deleteing")
+    fetch("http://localhost:8080/api/v1/Movie?id="+id, {
+        method: "DELETE",
+        body: null,
+        headers: {
+            "Content-type": "application/json"
+        }
+    }).then(location.reload)
+
 }
 
 function saveMovie(event){
