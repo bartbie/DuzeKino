@@ -125,16 +125,6 @@ saveBookingBtnFromPopUp.addEventListener("click", saveBooking)
 saveBookingBtnFromPopUp.addEventListener("click", closePopUpWindow)
 saveBookingBtnFromPopUp.addEventListener("click", () => window.location.href = "bookings_page.html")
 
-
-
-
-
-
-
-
-
-
-
     //Functionalities for Update bookings
 
 
@@ -153,7 +143,6 @@ function openPupUpForUpdatingBookings(bookingId,customerID,nrOfSeats){
 }
 
 function updateBooking(id){
-
 
     out("before fetch")
     fetch("http://localhost:8080/api/v1/Booking/" + id, {
@@ -180,10 +169,6 @@ const updateBookingBtnFromPopUp = document.getElementById("updateBooking_btn")
 
 updateBookingBtnFromPopUp.addEventListener("click", closePopUpWindow)
 updateBookingBtnFromPopUp.addEventListener("click", () => window.location.href = "bookings_page.html")
-
-
-
-
 
     //Functionalities for Delete bookings
 

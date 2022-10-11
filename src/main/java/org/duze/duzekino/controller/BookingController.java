@@ -35,11 +35,9 @@ public class BookingController {
     public ResponseEntity<Booking> updatePhoto(@PathVariable long id, @RequestBody Booking booking) {
         Optional<Booking> retrievedBooking = bookingService.findByID(id);
         if (retrievedBooking.isPresent()) {
-            System.out.println(retrievedBooking.get().getCustomer_id() + " " + retrievedBooking.get().getBooking_Id());
             retrievedBooking.get().setCustomer_id(booking.getCustomer_id());
             retrievedBooking.get().setNrOfSeats(booking.getNrOfSeats());
             bookingService.save(retrievedBooking.get());
-            System.out.println("after " + retrievedBooking.get().getCustomer_id() + " " + retrievedBooking.get().getBooking_Id());
 
             return new ResponseEntity<>(retrievedBooking.get(), HttpStatus.OK);
 
