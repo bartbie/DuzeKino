@@ -1,6 +1,11 @@
 function out(any) {console.log(any)}
 out("I am inside main_page.js")
 
+const newMoviePopup_btn = document.getElementById("newMovie_button")
+const editMoviePopup_btn = document.getElementById("editMovie_button")
+const saveMoviePopup_btn = document.getElementById("saveMovie_btn")
+const cancelPopup_btn = document.getElementById("cancel_btn")
+
 //This method takes a string as parameter and converts it into html (i stole it from a tutorial. You can see the  function in action at line 15. work in progress)
 function elementFromHtml(element){
     const template = document.createElement("template")
@@ -175,7 +180,9 @@ function saveMovie(event){
         }
     }).then(function (response){
         return response.json()
-    }).then(function (data){out(data)})
+    }).then(function (movies){
+        movies.forEach(movie => addMovieCardFromDB(movie))
+    })
 
 }
 
@@ -193,16 +200,16 @@ function setCoverImage(){
 let popup = document.getElementById('popup');
 
 function openPopup(){
-    popup.classList.add('open-popup')
+    // popup.classList.add('open-popup')
+    popup.style.visibility = "visible"
+    popup.style.marginTop = "26%";
+    popup.style.transform = "translate(-50%,-50%) scale(1)";
 }
 function closePopup(){
     popup.classList.remove('open-popup')
 }
 
-const newMoviePopup_btn = document.getElementById("newMovie_button")
-const editMoviePopup_btn = document.getElementById("editMovie_button")
-const saveMoviePopup_btn = document.getElementById("saveMovie_btn")
-const cancelPopup_btn = document.getElementById("cancel_btn")
+
 
 
 
