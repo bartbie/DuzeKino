@@ -21,38 +21,31 @@ function createTable(booking) {
     cell1.innerHTML= booking.booking_Id
 
     let cell2 = row.insertCell(1)
-    cell2.innerHTML= booking.customer_id
+    cell2.innerHTML= "Second"
 
     let cell3 = row.insertCell(2)
-    cell3.innerHTML= booking.nrOfSeats
+    cell3.innerHTML= booking.customer_id
 
     let cell4 = row.insertCell(3)
-    cell4.innerHTML= "Fourth"
+    cell4.innerHTML= booking.nrOfSeats
 
     let cell5 = row.insertCell(4)
     cell5.innerHTML= "Fifth"
 
-    let cell6 = row.insertCell(5)
-    cell6.className = "seatNr"
-    let showSeatNr = document.createElement("span")
-    showSeatNr.className = "showSeatNr"
-    // cell6.addEventListener("mouseover", showSeats)
-    cell6.appendChild(showSeatNr)
-    cell6.innerHTML= "Sixth"
 
-    let cell7 = row.insertCell(6)
+    let cell6 = row.insertCell(5)
     let updateButton = document.createElement("button")
     updateButton.innerHTML = "Update"
     updateButton.className = "updateBtn"
     updateButton.addEventListener("click", openPupUpForUpdatingBookings)
-    cell7.appendChild(updateButton)
+    cell6.appendChild(updateButton)
 
-    let cell8 = row.insertCell(7)
+    let cell7 = row.insertCell(6)
     let deleteButton = document.createElement("button")
     deleteButton.innerHTML = "Delete"
     deleteButton.className = "deleteBtn"
     deleteButton.addEventListener("click", booking => deleteFetching(cell1.innerHTML))
-    cell8.appendChild(deleteButton)
+    cell7.appendChild(deleteButton)
 
 }
 
