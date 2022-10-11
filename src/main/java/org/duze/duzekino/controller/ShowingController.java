@@ -2,9 +2,7 @@ package org.duze.duzekino.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.duze.duzekino.exception.MovieNotFoundException;
 import org.duze.duzekino.exception.ShowingException;
-import org.duze.duzekino.model.Movie;
 import org.duze.duzekino.model.Showing;
 import org.duze.duzekino.service.ShowingService;
 import org.springframework.web.bind.annotation.*;

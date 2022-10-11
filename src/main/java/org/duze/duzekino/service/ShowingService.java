@@ -3,17 +3,16 @@ package org.duze.duzekino.service;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.duze.duzekino.exception.MovieException;
 import org.duze.duzekino.exception.ShowingException;
-import org.duze.duzekino.model.Booking;
-import org.duze.duzekino.model.ReservedSeat;
-import org.duze.duzekino.model.Seat;
+import org.duze.duzekino.model.Movie;
 import org.duze.duzekino.model.Showing;
 import org.duze.duzekino.repository.ShowingRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +20,6 @@ import java.util.function.Predicate;
 public final class ShowingService {
     final ShowingRepository showingRepo;
     final MovieService movieService;
-    final SeatService seatService;
 
     public ShowingException newException(String msg) {
         log.error(msg);
@@ -33,6 +31,8 @@ public final class ShowingService {
         Predicate<Showing> theaterEquals = s -> s.getTheater().equals(showing.getTheater());
         return getShowings().stream().anyMatch(movieEquals.and(theaterEquals));
     }
+
+    // READ
 
     public List<Showing> getShowings() {
         return showingRepo.findAll();
@@ -46,14 +46,33 @@ public final class ShowingService {
         return showingRepo.findShowingByMovieId(movieId);
     }
 
-    public Showing addShowing(@NonNull Showing showing) throws ShowingException {
+    // CREATE
+
+    // singular
+    public Showing addShowing(@NonNull Showing showing) throws ShowingException, MovieException {
         if (inDatabase(showing)) {
             throw newException("Showing already in Database");
         }
+        if (!movieService.inDatabase(showing.getMovie())) {
+            throw movieService.newException("Movie not added to Database!");
+        }
+
         log.info("Adding %s to Database".formatted(showing));
-        createShowingFor90Days(showing);
+        showingRepo.save(showing);
         return showing;
     }
+
+    public Showing addShowingAndMovie(@NonNull Showing showing) throws ShowingException {
+        try {
+           addShowing(showing);
+        } catch (MovieException e) {
+            movieService.addMovie(showing.getMovie());
+            addShowing(showing);
+        }
+        return showing;
+    }
+
+    // DELETE
 
     // for internal use only
     private void deleteShowingUnchecked(@NonNull Showing showing) {
@@ -77,7 +96,12 @@ public final class ShowingService {
                         });
     }
 
-    public Showing updateShowing(@NonNull Showing oldShowing, @NonNull Showing newShowing) {
+    // UPDATE
+
+    public Showing updateShowing(@NonNull Showing oldShowing, @NonNull Showing newShowing) throws MovieException {
+        if (!movieService.inDatabase(newShowing.getMovie())) {
+            throw movieService.newException("newer Movie not added to Database!");
+        }
         var oldInfo = oldShowing.toString();
         oldShowing.setTime(newShowing.getTime());
         oldShowing.setTheater(newShowing.getTheater());
@@ -95,16 +119,130 @@ public final class ShowingService {
         return updateShowing(oldShowing.get(), newShowing);
     }
 
+    public Showing updateShowingAndCreateMovie(@NonNull Showing oldShowing, @NonNull Showing newShowing) {
+        try {
+            updateShowing(oldShowing, newShowing);
+        } catch (MovieException e) {
+            movieService.addMovie(newShowing.getMovie());
+        }
+        return updateShowing(oldShowing, newShowing);
+    }
 
-    public void createShowingFor90Days(Showing showing){
-        for(int i = 0; i <= 90; i++){
-            LocalDateTime startDate = showing.getTime();
-            Showing newShowing = new Showing();
-            newShowing.setTime(startDate.plusDays(i));
-            showingRepo.save(newShowing);
+    // 90 days wrappers
+
+    public Showing extendShowingFor90Days(@NonNull Showing showing) throws ShowingException {
+        if (!inDatabase(showing)) {
+            throw newException("Showing not in Database!");
+        }
+        for (int i = 1; i < 90; i++) {
+            showingRepo.save(new Showing(
+                    showing.getTime().plusDays(i),
+                    showing.getMovie(),
+                    showing.getTheater()));
+        }
+        return showing;
+    }
+
+    public Showing createShowingsFor90Days(@NonNull Showing showing) throws ShowingException, MovieException {
+        if (inDatabase(showing)) {
+            throw newException("Showing already in Database!");
+        }
+        if (!movieService.inDatabase(showing.getMovie())) {
+            throw movieService.newException("Movie not added to Database!");
+        }
+        log.info("Adding 90 x %s to Database".formatted(showing));
+        showingRepo.save(showing);
+        return extendShowingFor90Days(showing);
+    }
+
+   public Showing createShowingsAndMovieFor90Days(@NonNull Showing showing) throws ShowingException {
+       try {
+           createShowingsFor90Days(showing);
+       } catch (MovieException e) {
+           movieService.addMovie(showing.getMovie());
+           createShowingsFor90Days(showing);
+       }
+       return showing;
+   }
+
+    public List<Showing> findShowingsFor90Days(@NonNull Showing showing) {
+        return showingRepo.findAll().stream()
+                        .filter(
+                                showing1 ->
+                                        showing1.getMovie()
+                                                .getMovieId()
+                                                .equals(showing.getMovie().getMovieId()))
+                        .collect(Collectors.toList());
+    }
+
+    public List<Showing> findShowingsFor90DaysByMovie(@NonNull Movie movie) {
+        return showingRepo.findAll().stream()
+                .filter(showing -> showing.getMovie().getMovieId().equals(movie.getMovieId()))
+                .collect(Collectors.toList());
+    }
+
+    public void removeShowingsFor90Days(@NonNull Showing showing) throws ShowingException {
+        if (!inDatabase(showing)) {
+            throw newException("Showing not in Database!");
+        }
+        var showings = findShowingsFor90Days(showing);
+        log.info("removing %d x %s".formatted(showings.size(), showing));
+        showingRepo.deleteAll(showings);
+    }
+
+    public void removeShowingsFor90DaysByMovie(@NonNull Movie movie) throws MovieException, ShowingException {
+        if (!movieService.inDatabase(movie)) {
+            throw newException("Movie not in Database!");
+        }
+        showingRepo.findShowingByMovieId(movie.getMovieId()).ifPresent(this::removeShowingsFor90Days);
+    }
+
+    public void updateShowingsFor90Days(@NonNull Showing oldShowing, @NonNull Showing newShowing) throws ShowingException, MovieException {
+        if (!inDatabase(oldShowing)) {
+            throw newException("Showing not in Database!");
+        }
+        if (!movieService.inDatabase(newShowing.getMovie())) {
+            throw movieService.newException("newer Movie not added to Database!");
+        }
+        var oldInfo = oldShowing.toString();
+        log.info("updating from %s to %s".formatted(oldInfo, newShowing));
+        findShowingsFor90Days(oldShowing).forEach(showing1 -> {
+            showing1.setTheater(newShowing.getTheater());
+            showing1.setMovie(newShowing.getMovie());
+            showingRepo.save(showing1);
+        });
+    }
+
+    public void updateShowingsFor90DaysByMovie(@NonNull Movie movie, @NonNull Showing newShowing) throws ShowingException, MovieException {
+        if (!movieService.inDatabase(movie)) {
+            throw newException("Showing not in Database!");
+        }
+        if (!movieService.inDatabase(newShowing.getMovie())) {
+            throw movieService.newException("newer Movie not added to Database!");
+        }
+        log.info("updating for movie %s to %s".formatted(movie, newShowing));
+        findShowingsFor90DaysByMovie(movie).forEach(showing1 -> {
+            showing1.setTheater(newShowing.getTheater());
+            showing1.setMovie(newShowing.getMovie());
+            showingRepo.save(showing1);
+        });
+    }
+
+    public void updateShowingsAncCreateMovieFor90Days(@NonNull Showing oldShowing, @NonNull Showing newShowing) throws ShowingException {
+        try {
+           updateShowingsFor90Days(oldShowing, newShowing);
+        } catch (MovieException e) {
+            movieService.addMovie(newShowing.getMovie());
+            updateShowingsFor90Days(oldShowing, newShowing);
         }
     }
 
-
-
+    public void updateShowingsAncCreateMovieFor90DaysByMovie(@NonNull Movie movie, @NonNull Showing newShowing) throws ShowingException {
+        try {
+            updateShowingsFor90DaysByMovie(movie, newShowing);
+        } catch (MovieException e) {
+            movieService.addMovie(newShowing.getMovie());
+            updateShowingsFor90DaysByMovie(movie, newShowing);
+        }
+    }
 }

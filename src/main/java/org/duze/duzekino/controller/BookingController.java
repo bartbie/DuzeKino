@@ -3,9 +3,8 @@ package org.duze.duzekino.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.duze.duzekino.exception.BookingException;
-import org.duze.duzekino.exception.MovieNotFoundException;
+import org.duze.duzekino.exception.MovieException;
 import org.duze.duzekino.model.Booking;
-import org.duze.duzekino.model.Movie;
 import org.duze.duzekino.service.BookingService;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,7 +40,7 @@ public class BookingController {
     }
 
     @DeleteMapping
-    public void deleteBooking(@RequestParam long id) throws MovieNotFoundException {
+    public void deleteBooking(@RequestParam long id) throws MovieException {
         log.info("Deleting Booking with id %d".formatted(id));
         findByIdAndDo(bookingService::deleteBooking, id);
     }
@@ -52,13 +51,13 @@ public class BookingController {
         findByIdAndDo(movie1 -> bookingService.updateBooking(movie1, booking), id);
     }
 
-    private void findByIdAndDo(Consumer<Booking> fn, long id) throws MovieNotFoundException {
+    private void findByIdAndDo(Consumer<Booking> fn, long id) throws MovieException {
         var mv = bookingService.findBookingById(id);
         mv.ifPresentOrElse(
                 fn,
                 () -> {
                     log.error("Couldn't find booking with id %d".formatted(id));
-                    throw new MovieNotFoundException("No booking with such ID");
+                    throw new MovieException("No booking with such ID");
                 });
     }
 }

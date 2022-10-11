@@ -1,35 +1,23 @@
 package org.duze.duzekino.model;
 
-import com.sun.istack.NotNull;
-import lombok.*;
+public enum Theater {
+    THEATER1(1),
+    THEATER2(2);
 
-import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+    private final int number;
 
-@Entity
-@Setter
-@Getter
-@NoArgsConstructor
-@ToString
-@EqualsAndHashCode
-public final class Theater {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter(AccessLevel.NONE)
-    @NotNull
-    private Long theaterId;
-
-    @NotNull @NonNull private String name;
-
-    public Theater(@NonNull String name) {
-        this.name = name;
+    Theater(int number) {
+        this.number = number;
     }
 
-/*    @OneToMany (mappedBy = "theater")
-    private Set<Showing> showings = new HashSet<>();
+    public int getNumber() { return this.number; }
 
-    @OneToMany (mappedBy = "theater")
-    private Set<Seat> seats = new HashSet<>();*/
+    public static Theater toTheater(int integer) {
+        return switch (integer) {
+            case 1 -> THEATER1;
+            case 2 -> THEATER2;
+            default -> throw new IllegalStateException("Such Theater does not exist");
+        };
+    }
 
 }

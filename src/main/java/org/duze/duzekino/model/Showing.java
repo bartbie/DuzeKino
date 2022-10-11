@@ -2,7 +2,10 @@ package org.duze.duzekino.model;
 
 import com.sun.istack.NotNull;
 import lombok.*;
+import org.duze.duzekino.converter.TheaterToIntegerConverter;
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -25,18 +28,15 @@ public final class Showing {
 
     @NotNull @NonNull private LocalDateTime time;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name="movieId")
-    @NotNull @NonNull
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @NotNull
     private Movie movie;
 
-    @ManyToOne()
-    @JoinColumn(name="theaterId")
     @NotNull @NonNull
+    @Convert(converter = TheaterToIntegerConverter.class)
     private Theater theater;
-
-/*    @OneToMany(mappedBy = "showing", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<Booking> bookings = new HashSet<>();*/
 
 
     public Showing(@NonNull LocalDateTime time, @NonNull Movie movie, @NonNull Theater theater) {

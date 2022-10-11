@@ -12,10 +12,5 @@ class DuzeKinoApplicationTests {
         System.out.println("lol");
     }
 
-    void testGetUser() {
-
-    }
-
-
 
 }

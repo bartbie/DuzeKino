@@ -4,18 +4,12 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.duze.duzekino.exception.BookingException;
-import org.duze.duzekino.exception.ShowingException;
 import org.duze.duzekino.model.Booking;
-import org.duze.duzekino.model.Movie;
-import org.duze.duzekino.model.ReservedSeat;
-import org.duze.duzekino.model.Showing;
 import org.duze.duzekino.repository.BookingRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.function.Predicate;
 
 
@@ -30,11 +24,6 @@ public final class BookingService {
         log.error(msg);
         return new BookingException(msg);
     }
-
-/*    public ShowingException newExc(String msg){
-        log.error(msg);
-        return new ShowingException(msg);
-    }*/
 
     public boolean inDatabase(@NonNull Booking booking) {
         Predicate<Booking> phoneNumberEquals = s -> s.getPhoneNumber().equals(booking.getPhoneNumber());
@@ -78,9 +67,6 @@ public final class BookingService {
 
 
     public Booking addBooking(@NonNull Booking booking) throws BookingException {
-/*        if(!showingService.inDatabase(booking.getShowing())){
-            throw newExc("Selected showing is not in database");
-        }*/
         if(inDatabase(booking)){
             throw newException("Booking already in database");
         }

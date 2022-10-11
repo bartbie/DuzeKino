@@ -5,6 +5,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.PropertySource;
+import org.duze.duzekino.exception.MovieException;
 import org.duze.duzekino.model.Movie;
 import org.duze.duzekino.model.PG;
 import org.duze.duzekino.repository.MovieRepository;
@@ -29,16 +30,16 @@ public final class MovieService {
         return getMovies().stream().anyMatch(yearEquals.and(titleEquals));
     }
 
-    public IllegalStateException newException(String msg) {
+    public MovieException newException(String msg) {
         log.error(msg);
-        return new IllegalStateException(msg);
+        return new MovieException(msg);
     }
 
     public List<Movie> getMovies() {
         return movieRepo.findAll();
     }
 
-    public Movie addMovie(@NonNull Movie movie) throws IllegalStateException {
+    public Movie addMovie(@NonNull Movie movie) throws MovieException {
         if (inDatabase(movie)) {
             throw newException("Movie Already in Database");
         }

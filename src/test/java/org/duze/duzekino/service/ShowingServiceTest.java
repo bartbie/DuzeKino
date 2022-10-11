@@ -1,12 +1,15 @@
 package org.duze.duzekino.service;
 
+import lombok.NonNull;
+import org.duze.duzekino.exception.MovieException;
+import org.duze.duzekino.exception.ShowingException;
 import org.duze.duzekino.model.Movie;
 import org.duze.duzekino.model.PG;
 import org.duze.duzekino.model.Showing;
 import org.duze.duzekino.model.Theater;
 import org.duze.duzekino.repository.MovieRepository;
 import org.duze.duzekino.repository.ShowingRepository;
-import org.duze.duzekino.repository.TheaterRepository;
+import org.junit.FixMethodOrder;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,12 +18,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@FixMethodOrder()
 class ShowingServiceTest {
 
     @Autowired MovieService movieService;
@@ -31,81 +34,191 @@ class ShowingServiceTest {
     @Autowired ShowingRepository showingRepository;
     Showing showing;
 
-    @Autowired TheaterRepository theaterRepository;
-    @Autowired TheaterService theaterService;
     Theater theater;
 
     @BeforeEach
     void setUp() {
-        // set up movies
+//         set up movies
         movie = new Movie("ExampleTitle", "desc", 2000, Duration.ofMinutes(60), PG.SEVENTEEN);
-        TestUtils.setUpRepo(movie, movieRepository);
-        // set up theater
-        theater = TestUtils.setUpRepo(new Theater("ExampleTheater"), theaterRepository);
-        // set up showings
-        showing = TestUtils.setUpRepo(new Showing(LocalDateTime.now(), movie, theater), showingRepository);
-
+        movieService.addMovie(movie);
+//         set up theater
+        theater = Theater.THEATER2;
+//         set up showings
+        showing = new Showing(LocalDateTime.now(), movie, theater);
+        showingRepository.save(showing);
     }
 
-//    @AfterEach
-//    void tearDown() {}
+    @AfterEach
+    void tearDown() {
+        movieRepository.deleteAll();
+        showingRepository.deleteAll();
+    }
 
-    // passed
     @Test
     void inDatabase() {
         assertTrue(showingService.inDatabase(showing));
     }
 
-    // passed
     @Test
     void getShowings() {
         assertEquals(List.of(showing), showingService.getShowings());
     }
 
-    // passed
     @Test
     void findShowingById() {
         assertEquals(showing, showingService.findShowingById(showing.getId()).get());
     }
 
-    // FAILED. TEST NEED TO BE REWRITTEN addShowing creates 90 showings and showing is only one, method actually returns the right thing
     @Test
     void addShowing() {
         Movie newM = new Movie("Shrek", "the 2", 2001, Duration.ofMinutes(120), PG.ANY);
-        Showing newS = new Showing(LocalDateTime.now(), newM, new Theater("TestTheater"));
+        movieService.addMovie(newM);
+        Showing newS = new Showing(LocalDateTime.now(), newM, Theater.THEATER1);
         showingService.addShowing(newS);
         assertEquals(List.of(showing, newS), showingService.getShowings());
     }
 
-    // passed
+    @Test
+    void addShowingAndMovie() {
+        Movie newM = new Movie("Shrek", "the 2", 2001, Duration.ofMinutes(120), PG.ANY);
+        Showing newS = new Showing(LocalDateTime.now(), newM, Theater.THEATER1);
+        showingService.addShowingAndMovie(newS);
+        assertEquals(List.of(showing, newS), showingService.getShowings());
+    }
+
     @Test
     void deleteShowing() {
         showingService.deleteShowing(showing);
         assertFalse(showingService.inDatabase(showing));
     }
 
-    // passed
     @Test
     void deleteShowingByMovieId() {
         showingService.deleteShowingByMovieId(movie.getMovieId());
         assertFalse(showingService.inDatabase(showing));
     }
 
-    // ERROR: object references an unsaved transient instance - save the transient instance before flushing
     @Test
     void updateShowing() {
         Movie updatedMovie = new Movie("Updated", "sced", 2, Duration.ofMinutes(6), PG.FIFTEEN);
-        Showing updated = new Showing(LocalDateTime.now(), updatedMovie, new Theater("TestTheater"));
+        movieService.addMovie(updatedMovie);
+        Showing updated = new Showing(LocalDateTime.now(), updatedMovie, Theater.THEATER1);
         showingService.updateShowing(showing, updated);
         assertEquals(showing.getMovie().getTitle(), updated.getMovie().getTitle());
     }
 
-    // ERROR: object references an unsaved transient instance - save the transient instance before flushing
     @Test
     void updateShowingById() {
+        System.out.println(showing);
         Movie updatedMovie = new Movie("Updated", "sced", 2, Duration.ofMinutes(6), PG.FIFTEEN);
-        Showing updated = new Showing(LocalDateTime.now(), updatedMovie, new Theater("TestTheater"));
-        showingService.updateShowingById(showing.getId(), updated);
+        movieService.addMovie(updatedMovie);
+        System.out.println(updatedMovie);
+        Showing updated = new Showing(LocalDateTime.now(), updatedMovie, Theater.THEATER1);
+        System.out.println(updated);
+        showing = showingService.updateShowingById(showing.getId(), updated);
         assertEquals(showing.getMovie().getTitle(), updated.getMovie().getTitle());
+    }
+
+    @Test
+    void updateShowingAndCreateMovie() {
+        Movie updatedMovie = new Movie("Updated", "sced", 2, Duration.ofMinutes(6), PG.FIFTEEN);
+        Showing updated = new Showing(LocalDateTime.now(), updatedMovie, Theater.THEATER1);
+        showingService.updateShowingAndCreateMovie(showing, updated);
+        assertEquals(showing.getMovie().getTitle(), updated.getMovie().getTitle());
+    }
+
+    @Test
+    void createShowingsFor90Days() {
+        // one showing is already added
+//        System.out.println(showingService.getShowings());
+        Movie newM = new Movie("Shrek", "the 2", 2001, Duration.ofMinutes(120), PG.ANY);
+        movieService.addMovie(newM);
+        Showing newS = new Showing(LocalDateTime.now(), newM, Theater.THEATER1);
+        showingService.createShowingsFor90Days(newS);
+        assertEquals(90+1, showingService.getShowings().size());
+    }
+
+    @Test
+    void extendShowingFor90Days() {
+        showingService.extendShowingFor90Days(showing);
+        assertEquals(90, showingService.getShowings().size());
+    }
+
+    @Test
+    void createShowingsAndMovieFor90Days() {
+        Movie newM = new Movie("Shrek", "the 2", 2001, Duration.ofMinutes(120), PG.ANY);
+        Showing newS = new Showing(LocalDateTime.now(), newM, Theater.THEATER1);
+        showingService.createShowingsAndMovieFor90Days(newS);
+        assertEquals(90+1, showingService.getShowings().size());
+    }
+
+    @Test
+    void findShowingsFor90Days() {
+        showingService.extendShowingFor90Days(showing);
+        assertEquals(90, showingService.findShowingsFor90Days(showing).size());
+    }
+
+    @Test
+    void findShowingsFor90DaysByMovie() {
+        showingService.extendShowingFor90Days(showing);
+        assertEquals(90, showingService.findShowingsFor90DaysByMovie(showing.getMovie()).size());
+    }
+
+    @Test
+    void removeShowingsFor90Days() {
+        showingService.extendShowingFor90Days(showing);
+        Movie newM = new Movie("Shrek", "the 2", 2001, Duration.ofMinutes(120), PG.ANY);
+        Showing newS = new Showing(LocalDateTime.now(), newM, Theater.THEATER1);
+        showingService.addShowingAndMovie(newS);
+        showingService.removeShowingsFor90Days(showing);
+        assertEquals(1, showingService.getShowings().size());
+    }
+
+    @Test
+    void removeShowingsFor90DaysByMovie() {
+        showingService.extendShowingFor90Days(showing);
+        Movie newM = new Movie("Shrek", "the 2", 2001, Duration.ofMinutes(120), PG.ANY);
+        Showing newS = new Showing(LocalDateTime.now(), newM, Theater.THEATER1);
+        showingService.addShowingAndMovie(newS);
+        showingService.removeShowingsFor90DaysByMovie(newM);
+        assertEquals(90, showingService.getShowings().size());
+    }
+
+    @Test
+    void updateShowingsFor90Days() {
+        showingService.extendShowingFor90Days(showing);
+        Movie newM = new Movie("Shrek", "the 2", 2001, Duration.ofMinutes(120), PG.ANY);
+        movieService.addMovie(newM);
+        Showing newS = new Showing(LocalDateTime.now(), newM, Theater.THEATER1);
+        showingService.updateShowingsFor90Days(showing, newS);
+        assertEquals(90, showingService.findShowingsFor90Days(newS).size());
+    }
+
+    @Test
+    void updateShowingsFor90DaysByMovie() {
+        showingService.extendShowingFor90Days(showing);
+        Movie newM = new Movie("Shrek", "the 2", 2001, Duration.ofMinutes(120), PG.ANY);
+        movieService.addMovie(newM);
+        Showing newS = new Showing(LocalDateTime.now(), newM, Theater.THEATER1);
+        showingService.updateShowingsFor90DaysByMovie(movie, newS);
+        assertEquals(90, showingService.findShowingsFor90Days(newS).size());
+    }
+
+    @Test
+    void updateShowingsAncCreateMovieFor90Days() {
+        showingService.extendShowingFor90Days(showing);
+        Movie newM = new Movie("Shrek", "the 2", 2001, Duration.ofMinutes(120), PG.ANY);
+        Showing newS = new Showing(LocalDateTime.now(), newM, Theater.THEATER1);
+        showingService.updateShowingsAncCreateMovieFor90Days(showing, newS);
+        assertEquals(90, showingService.findShowingsFor90Days(newS).size());
+    }
+    @Test
+    public void updateShowingsAncCreateMovieFor90DaysByMovie() {
+        showingService.extendShowingFor90Days(showing);
+        Movie newM = new Movie("Shrek", "the 2", 2001, Duration.ofMinutes(120), PG.ANY);
+        Showing newS = new Showing(LocalDateTime.now(), newM, Theater.THEATER1);
+        showingService.updateShowingsAncCreateMovieFor90DaysByMovie(movie, newS);
+        assertEquals(90, showingService.findShowingsFor90Days(newS).size());
+
     }
 }

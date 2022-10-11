@@ -1,6 +1,6 @@
 package org.duze.duzekino.service;
 
-import org.duze.duzekino.exception.MovieNotFoundException;
+import org.duze.duzekino.exception.MovieException;
 import org.duze.duzekino.model.Movie;
 import org.duze.duzekino.model.PG;
 import org.duze.duzekino.repository.MovieRepository;
@@ -43,7 +43,7 @@ class MovieServiceTest {
     }
 
     @Test
-    void addMovie() throws MovieNotFoundException {
+    void addMovie() throws MovieException {
         Movie newM = new Movie("Shrek", "the 2", 2001, Duration.ofMinutes(120), PG.ANY);
         service.addMovie(newM);
         assertEquals(List.of(movie, newM), (service.getMovies()));

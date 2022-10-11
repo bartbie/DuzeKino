@@ -3,7 +3,7 @@ package org.duze.duzekino.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.duze.duzekino.model.Movie;
-import org.duze.duzekino.exception.MovieNotFoundException;
+import org.duze.duzekino.exception.MovieException;
 import org.duze.duzekino.service.MovieService;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,24 +32,24 @@ public class MovieController {
     }
 
     @DeleteMapping
-    public void deleteMovie(@RequestParam long id) throws MovieNotFoundException {
+    public void deleteMovie(@RequestParam long id) throws MovieException {
         log.info("Deleting Movie with id %d".formatted(id));
         findByIdAndDo(movieService::deleteMovie, id);
     }
 
     @PutMapping
-    public void updateMovie(@RequestParam long id, @RequestBody Movie movie) throws MovieNotFoundException {
+    public void updateMovie(@RequestParam long id, @RequestBody Movie movie) throws MovieException {
         log.info("Updating Movie with id %d. New Data: %s".formatted(id, movie));
         findByIdAndDo(movie1 -> movieService.updateMovie(movie1, movie), id);
     }
 
-    private void findByIdAndDo(Consumer<Movie> fn, long id) throws MovieNotFoundException {
+    private void findByIdAndDo(Consumer<Movie> fn, long id) throws MovieException {
         var mv = movieService.findMovieById(id);
         mv.ifPresentOrElse(
                 fn,
                 () -> {
                     log.error("Couldn't find movie with id %d".formatted(id));
-                    throw new MovieNotFoundException("No movie with such ID");
+                    throw new MovieException("No movie with such ID");
                 });
     }
 }
