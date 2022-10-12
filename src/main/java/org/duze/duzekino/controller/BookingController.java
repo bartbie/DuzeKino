@@ -38,7 +38,6 @@ public class BookingController {
             retrievedBooking.get().setCustomer_id(booking.getCustomer_id());
             retrievedBooking.get().setNrOfSeats(booking.getNrOfSeats());
             bookingService.save(retrievedBooking.get());
-
             return new ResponseEntity<>(retrievedBooking.get(), HttpStatus.OK);
 
         } else {

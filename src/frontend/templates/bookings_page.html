@@ -13,12 +13,13 @@
     <h2 id="username">Username</h2>
   </div>
   <div class="switchMBDiv">
-    <button class= "switchButton" >Movies</button>
-    <button class ="switchButton" >Bookings</button>
+    <a href="main_page.html" style="text-decoration: none"><button class= "switchButton" >Movies</button></a>
+    <a href="bookings_page.html" style="text-decoration: none"><button class= "switchButton" >Bookings</button></a>
   </div>
 
   <div>
-    <img src="image/logout_icon.png" class="navbar_icon" id="logout_icon">
+    <a href="index.html" style="text-decoration: none"> <img src="image/logout_icon.png" class="navbar_icon" id="logout_icon"> </a>
+
   </div>
 
 </div>
@@ -61,7 +62,7 @@
 
       <label for="bookingID">Booking ID:</label>
       <br>
-      <input type="number" id="bookingID" maxlength="4" ><br><br>
+      <p type="number" id="bookingID" maxlength="4"> </p> <br><br>
 
 
       <label for="showingID">Showing ID:</label>
@@ -95,7 +96,6 @@
   <div class="buttons_div">
     <button type="button" class="button" id="saveBooking_btn">Save</button>
     <button type="button" class="button" id="updateBooking_btn">Update</button>
-
 
     <button type="button" class="button" id="cancelBooking_btn">Cancel</button>
   </div>

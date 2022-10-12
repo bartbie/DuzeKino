@@ -2,6 +2,7 @@ function out(any){
     console.log(any)
 }
 
+
 const rgForm = document.querySelector(".registrationForm")
 const loginForm = document.querySelector(".loginForm")
 
@@ -126,6 +127,7 @@ registerBtn.addEventListener("click", function (e) {
     }).then(function (data) {
         if (data.id) {
             window.location.href = "main_page.html"
+
         } else {
             regUserFld.value = ""
             regEmailFld.value = ""
@@ -173,9 +175,7 @@ loginBtn.addEventListener("click", function (e) {
         })
 })
 
-loginBtn.addEventListener("click", function(){
-    loggedInUser.innerHTML = "fuck u"
-})
+
 
 
 

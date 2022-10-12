@@ -93,6 +93,8 @@ function openPupUpForAddingBookings(){
     openPopUp.style.marginTop = "26%";
     openPopUp.style.transform = "translate(-50%,-50%) scale(1)";
 
+    bookingIdFromPopUp.innerText =  "?";
+
 }
 addBookingBtn.addEventListener("click", openPupUpForAddingBookings)
 
@@ -135,9 +137,10 @@ function openPupUpForUpdatingBookings(bookingId,customerID,nrOfSeats){
     openPopUp.style.marginTop = "26%";
     openPopUp.style.transform = "translate(-50%,-50%) scale(1)";
 
-    bookingIdFromPopUp.value = bookingId;
     customerIdFromPopUp.value = customerID;
     nrOfSeatsFromPopUp.value = nrOfSeats;
+    bookingIdFromPopUp.innerText = bookingId;
+
 
     //
     // saveBookingBtnFromPopUp.innerHTML = "Update"
