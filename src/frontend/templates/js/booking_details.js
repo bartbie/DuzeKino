@@ -30,7 +30,7 @@ function createTable(booking) {
     cell4.innerHTML= booking.nrOfSeats
 
     let cell5 = row.insertCell(4)
-    cell5.innerHTML= "Fifth"
+    cell5.innerHTML= "Fifth"/*booking.snackID*/
 
 
     let cell6 = row.insertCell(5)
@@ -187,7 +187,7 @@ function deleteFetching(booking_id){
         window.location.href = "bookings_page.html"
     })
 }
-
+//hide and show buttons on click
 function disable_update_btn(){
     document.getElementById("updateBooking_btn").hidden = true;
     document.getElementById("saveBooking_btn").hidden = false;
@@ -196,5 +196,20 @@ function disable_update_btn(){
 function disable_save_btn(){
     document.getElementById("updateBooking_btn").hidden = false;
     document.getElementById("saveBooking_btn").hidden = true;
+}
+
+
+//+ button properties
+let buttonClicks = 0;
+function add_snacks_input() {
+    buttonClicks++;
+    if (buttonClicks < 5 ) {
+        let textfield = document.createElement("input");
+        textfield.type = "number";
+        textfield.maxLength = "2";
+        textfield.id = "snackID" + (buttonClicks);
+        textfield.class = "allSnacks"
+        document.getElementById('form').appendChild(textfield);
+    }
 }
 

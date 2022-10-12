@@ -167,4 +167,21 @@ tr{
     transform: translate(-50%, -50%) scale(1);
 }
 
+#popoupBookingsField #snackID1{
+    width: 9%;
+}
+#popoupBookingsField #snackID2{
+    width: 9%;
+}
+#popoupBookingsField #snackID3{
+    width: 9%;
+}
+#popoupBookingsField #snackID4{
+    width: 9%;
+}
+#add_snacks{
+    width: 4%;
+    height: 6%;
+}
+
 
