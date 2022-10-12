@@ -35,6 +35,8 @@ function createTable(booking) {
 
     let cell6 = row.insertCell(5)
     let updateButton = document.createElement("button")
+    updateButton.addEventListener("click",disable_save_btn)
+
     updateButton.innerHTML = "Update"
     updateButton.className = "updateBtn"
     updateButton.addEventListener("click", function (){
@@ -184,5 +186,15 @@ function deleteFetching(booking_id){
     }).then(function (response) {
         window.location.href = "bookings_page.html"
     })
+}
+
+function disable_update_btn(){
+    document.getElementById("updateBooking_btn").hidden = true;
+    document.getElementById("saveBooking_btn").hidden = false;
+}
+
+function disable_save_btn(){
+    document.getElementById("updateBooking_btn").hidden = false;
+    document.getElementById("saveBooking_btn").hidden = true;
 }
 
