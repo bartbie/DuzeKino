@@ -6,6 +6,9 @@ const editMoviePopup_btn = document.getElementById("editMovie_button")
 const saveMoviePopup_btn = document.getElementById("saveMovie_btn")
 const cancelPopup_btn = document.getElementById("cancel_btn")
 
+
+
+
 //This method takes a string as parameter and converts it into html (i stole it from a tutorial. You can see the  function in action at line 15. work in progress)
 function elementFromHtml(element){
     const template = document.createElement("template")
@@ -60,36 +63,7 @@ function setInputValue(){
     return input
 }
 
-function setInputValueFetched(movieList){
 
-    let input = [];
-    input['title'] = popupMovieTitle.value
-    input['year'] = popupYear.value
-    input['pg'] = popupPG_id.value
-    input['duration'] = popupLength.value
-    input['cast'] = popupCast_id.value
-    input['description'] =  popupDescription.value
-
-    return input
-}
-
-// const XML_HTTP = new XMLHttpRequest();
-//
-// function fetchStuff(endpoint, method, body) {
-//     XML_HTTP.open(method,`http://localhost:8080/${endpoint}`, false); // false for synchronous request
-//     XML_HTTP.send(body);
-//     return JSON.parse(XML_HTTP.responseText);
-// }
-//
-// const movieFetch = (method, body) => fetchStuff("api/v1/Movie", method, body)
-//
-// function fetchAllMovies() { // returns array of movies
-//     return movieFetch("GET", null);
-// }
-//
-// out(fetchAllMovies())
-//
-// const movies = fetchAllMovies()
 
 
 //We definitely need paramater to pass in the movieCard variable. maybe something like: document.getElementById("movieYear").setAttribute(variableName)
@@ -151,7 +125,8 @@ function addMovieCardFromDB(movie){
         '\n' +
         '                <div class="cardButton_div">\n' +
         '                    <button class="button" id="edit_button">Edit</button>\n' +
-        '                    <button class="button" id="delete_button">Delete</button>\n' +
+
+        '                    <button class="button" id="delete_button" ">Delete</button>\n' +
         '                </div>\n' +
         '            </div>\n' +
         '        </div>')
@@ -161,6 +136,25 @@ function addMovieCardFromDB(movie){
     //Now i can append the movie card inside the section_center div so that can follow its styling
     elementToAppendTO.appendChild(movieCard)
 }
+
+
+
+//KEV AND MADALIN
+
+let popup = document.getElementById('popup');
+
+function openPopup(){
+    // popup.classList.add('open-popup')
+    popup.style.visibility = "visible"
+    popup.style.marginTop = "26%";
+    popup.style.transform = "translate(-50%,-50%) scale(1)";
+}
+function closePopup(){
+    // popup.classList.remove('open-popup')
+    popup.style.visibility = "hidden"
+
+}
+
 
 function saveMovie(event){
     event.preventDefault()
@@ -195,23 +189,10 @@ function setCoverImage(){
      return reader.readAsDataURL(this.files[0]);
 }
 
-//KEV AND MADALIN
-
-let popup = document.getElementById('popup');
-
-function openPopup(){
-    // popup.classList.add('open-popup')
-    popup.style.visibility = "visible"
-    popup.style.marginTop = "26%";
-    popup.style.transform = "translate(-50%,-50%) scale(1)";
-}
-function closePopup(){
-    popup.classList.remove('open-popup')
-}
 
 
 
-
+    //Getting movie from database
 
 function fetchMovie() {
     out("inside fetch")
@@ -244,6 +225,8 @@ cancelPopup_btn.addEventListener('click', closePopup)
 editMoviePopup_btn.addEventListener('click', openPopup)
 
 input_image.addEventListener("change", setCoverImage)
+
+
 
 
 

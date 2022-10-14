@@ -126,6 +126,7 @@ registerBtn.addEventListener("click", function (e) {
         return response.json()
     }).then(function (data) {
         if (data.id) {
+
             window.location.href = "main_page.html"
 
         } else {
@@ -140,8 +141,6 @@ registerBtn.addEventListener("click", function (e) {
 })
 
 
-
-let loggedInUser = document.querySelector(".loggedInUsername");
 
 //Logging In'
 loginBtn.addEventListener("click", function (e) {
