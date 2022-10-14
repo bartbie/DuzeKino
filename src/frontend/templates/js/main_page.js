@@ -112,16 +112,16 @@ function addMovieCardFromDB(movie){
         '                <div class="importantMovieInfo">\n' +
         '                    <h4 class="movieInfo" id="inputYear">'+ movie.year +'</h4>\n' +
         '                    <h4 class="movieInfo">|</h4>\n' +
-        '                    <h4 class="movieInfo" id="inputPG">'+ "PG: "+ setInputValue().pg +' </h4>\n' +
+        '                    <h4 class="movieInfo" id="inputPG">'+ "PG: "+ movie.pg +' </h4>\n' +
         '                    <h4 class="movieInfo">|</h4>\n' +
-        '                    <h4 class="movieInfo" id="inputLength">'+ setInputValue().duration + ' minutes' + '</h4>\n' +
+        '                    <h4 class="movieInfo" id="inputLength">'+ movie.duration + ' minutes' + '</h4>\n' +
         '                </div>\n' +
         '\n' +
         '                <h4 class="movieInfoHeader">Cast:</h4>\n' +
-        '                <h4 class="movieInfo" id="inputCast">'+ setInputValue().cast +'</h4>\n' +
+        '                <h4 class="movieInfo" id="inputCast">'+ movie.cast +'</h4>\n' +
         '\n' +
         '                <h4 class="movieInfoHeader">Description:</h4>\n' +
-        '                <h4 class="movieInfo" id="inputDescription">'+ setInputValue().description +'</h4>\n' +
+        '                <h4 class="movieInfo" id="inputDescription">'+ movie.description +'</h4>\n' +
         '\n' +
         '                <div class="cardButton_div">\n' +
         '                    <button class="button" id="edit_button">Edit</button>\n' +
